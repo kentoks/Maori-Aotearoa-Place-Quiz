@@ -4,7 +4,7 @@ from functools import partial  # To prevent unwanted windows
 import random
 
 
-class Converter:
+class Quiz:
     def __init__(self):
 
         # Formatting variables...
@@ -67,6 +67,7 @@ class Help:
 # main routine
 if __name__ == "__main__":
     root = Tk()
-    root.title("Temperature Converter")
-    something = Converter()
+    root.title("Maori Aotearoa Place Quiz")
+    something = Quiz()
     root.mainloop()
+
