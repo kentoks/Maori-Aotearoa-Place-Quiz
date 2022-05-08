@@ -2,79 +2,79 @@ from tkinter import *
 from functools import partial  # To prevent unwanted windows
 
 
-class Converter:
+class MaoriQuiz:
     def __init__(self):
 
         # Formatting variables...
-        background_color = "light blue"
+        background_color = "deep sky blue"
 
         # Converter Main Screen GUI...
-        self.converter_frame = Frame(width=300, height=300,
+        self.quiz_frame = Frame(width=300, height=300,
                                      bg=background_color, pady=10)
-        self.converter_frame.grid()
+        self.quiz_frame.grid()
 
         # Temperature Conversion Heading (row 0)
-        self.temp_converter_label = Label(self.converter_frame,
-                                          text="Temperature Converter",
-                                          font=("Calibri", "16", "bold",),
+        self.quiz_heading_label = Label(self.quiz_frame,
+                                          text="Maori Aotearoa Place QUiz",
+                                          font=("Calibri", 16, "bold"),
                                           bg=background_color,
                                           padx=10, pady=10)
-        self.temp_converter_label.grid(row=0)
+        self.quiz_heading_label.grid(row=0)
 
-        # Help Button (row 1)
-        self.help_button = Button(self.converter_frame, text="Help", font=(
-            "Arial", "14"), padx=10, pady=10, command=self.help)
-        self.help_button.grid(row=1)
+        # instructions Button (row 1)
+        self.instructions_button = Button(self.quiz_frame, text="Instructions", font=(
+            "Calibri", "14"), padx=10, pady=10, command=self.instructions)
+        self.instructions_button.grid(row=1)
 
-    def help(self):
-        print("You asked for Help")
-        get_help = Help(self)
-        get_help.help_text.configure(text="Help text goes here")
+    def instructions(self):
+        print("You asked for Instructions")
+        get_instructions = Instructions(self)
+        get_instructions.instructions_text.configure(text="Instruction text goes here")
 
 
-class Help:
+class Instructions:
     def __init__(self, partner):
 
         background = "orange"
 
-        # disable help button
-        partner.help_button.config(state=DISABLED)
+        # disable instructions button
+        partner.instructions_button.config(state=DISABLED)
 
-        # Sets up child window (help box)
-        self.help_box = Toplevel()
+        # Sets up child window (instructions box)
+        self.instructions_box = Toplevel()
 
-        # If users press cross at top, closes help and 'releases' help button
-        self.help_box.protocol('WM_DELETE_WINDOW',
-                               partial(self.close_help, partner))
+        # If users press cross at top, closes instructions and 'releases' instructions button
+        self.instructions_box.protocol('WM_DELETE_WINDOW',
+                               partial(self.close_instructions, partner))
 
         # Set up GUI Frame
-        self.help_frame = Frame(self.help_box, width=300, bg=background)
-        self.help_frame.grid()
+        self.instructions_frame = Frame(self.instructions_box, width=300, bg=background)
+        self.instructions_frame.grid()
 
-        # Set up Help heading (row 0)
-        self.how_heading = Label(self.help_frame, text="Help / Instructions",
-                                    font="arial 10 bold", bg=background)
+        # Set up instructions heading (row 0)
+        self.how_heading = Label(self.instructions_frame, text="Instructions",
+                                    font=("Calibri", 10, "bold"), bg=background)
         self.how_heading.grid(row=0)
 
-        # Help text (label, row 1)
-        self.help_text = Label(self.help_frame, text="",
+        # instructions text (label, row 1)
+        self.instructions_text = Label(self.instructions_frame, text="",
                                justify=LEFT, width=40, bg=background, wrap=250)
-        self.help_text.grid(row=1)
+        self.instructions_text.grid(row=1)
 
         # Dismiss button (row 2)
-        self.dismiss_btn = Button(self.help_frame, text="Dismiss",
-                                  width=10, bg="orange", font="arial 10 bold",
-                                  command=partial(self.close_help, partner))
+        self.dismiss_btn = Button(self.instructions_frame, text="Dismiss",
+                                  width=10, bg="orange", font=("Calibri", 10, "bold"),
+                                  command=partial(self.close_instructions, partner))
         self.dismiss_btn.grid(row=2, pady=10)
 
-    def close_help(self, partner):
-        # Put help button back to normal..
-        partner.help_button.config(state=NORMAL)
-        self.help_box.destroy()
+    def close_instructions(self, partner):
+        # Put instructions button back to normal..
+        partner.instructions_button.config(state=NORMAL)
+        self.instructions_box.destroy()
 
 # main routine
 if __name__ == "__main__":
     root = Tk()
-    root.title("Temperature Converter")
-    something = Converter()
+    root.title("Maori Aotearoa Place Quiz")
+    something = MaoriQuiz()
     root.mainloop()

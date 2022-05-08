@@ -2,7 +2,7 @@ from tkinter import *
 import random
 
 
-class Quiz: # example window display
+class MaoriQuiz: # example window display
     def __init__(self, parent):
         print("Hello World")
 
@@ -11,5 +11,5 @@ class Quiz: # example window display
 if __name__ == "__main__":
     root = Tk()
     root.title("Maori Aotearoa Place Quiz")
-    something = Quiz(root)
+    something = MaoriQuiz(root)
     root.mainloop()
