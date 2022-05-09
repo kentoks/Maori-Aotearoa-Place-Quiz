@@ -3,11 +3,11 @@ from functools import partial  # To prevent unwanted windows
 import random
 
 
-class Converter:
+class MaoriQuiz:
     def __init__(self):
 
         # Formatting variables
-        background_color = "light blue"
+        background_color = "deep sky blue"
 
         # Converter Frame
         self.converter_frame = Frame(width=300, bg=background_color, pady=10)
@@ -15,7 +15,7 @@ class Converter:
 
         # Temperature Converter Heading (row 0)
         self.temp_heading_label = Label(self.converter_frame,
-                                        text="Temperature Converter",
+                                        text="Maori Aotearoa Place Quiz",
                                         font="Arial 16 bold",
                                         bg=background_color, padx=10, pady=10)
         self.temp_heading_label.grid(row=0)
@@ -28,10 +28,10 @@ class Converter:
                                              font="Arial 10 italic", wrap=250,
                                              justify=LEFT, bg=background_color,
                                              padx=10, pady=10)
-        self.temp_instructions_label.grid(row=0)
+        self.temp_instructions_label.grid(row=1)
 
         # Temperature entry box (row 2)
-        self.to_convert_entry = Entry(self.converter_frame, width=20,
+        self.to_convert_entry =Entry(self.converter_frame, width=20,
                                       font="Arial 14 bold")
         self.to_convert_entry.grid(row=2)
 

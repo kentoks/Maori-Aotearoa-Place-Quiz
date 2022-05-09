@@ -1,103 +1,65 @@
-""" Kent Nago
-"""
-
-# Import Tools
-from tkinter import * # For GUI Display
-from functools import partial # To Prevent Unwanted Windows
-import csv # For External States File and Saves File
+from tkinter import *
+from functools import partial  # To prevent unwanted windows
+import random
 
 
-# Menu GUI Class
-class Menu:
-    # Initialize Function
+class MaoriQuiz:
     def __init__(self):
-        # Define Formatting Variables
-        bg_colour = "deep sky blue"
 
-        # Main Frame
-        self.frm_m = Frame(width=700, height=300, bg=bg_colour)
-        self.frm_m.grid()
+        # Formatting variables
+        background_color = "deep sky blue"
 
-        # Heading (Row 0)
-        self.lbl_m_heading = Label(self.frm_m,
-                                   text="Maori Aotearoa Place Quiz",
-                                   font=("Arial", "16", "bold"),
-                                   bg=bg_colour,
-                                   padx=10, pady=5)
-        self.lbl_m_heading.grid(row=0)
+        # Main Quiz Frame
+        self.quiz_frame = Frame(width=300, bg=background_color, pady=10)
+        self.quiz_frame.grid()
 
-        # Button Frame (Row 1)
-        self.frm_m_buttons = Frame(self.frm_m, width=100, height=100, bg=bg_colour)
-        self.frm_m_buttons.grid(row=1)
+        # Maori Quiz Heading (row 0)
+        self.quiz_heading_label = Label(self.quiz_frame,
+                                        text="Maori Aotearoa Place Quiz",
+                                        font=("Calibri", 16, "bold"),
+                                        bg=background_color, padx=10, pady=10)
+        self.quiz_heading_label.grid(row=0)
 
-        # So that Width and Height is Measured in Pixels, Create 1x1 Image
-        pixel_image = PhotoImage(width=1, height=1)
+        # User beginning (row 1)
+        self.user_beginning_label = Label(self.quiz_frame,
+                                             text="Answer the following questions about "
+                                                  "the cities in New Zealand in Maori."
+                                                  " After you have finished, push 'Next'...",
+                                             font=("Calibri", 10, "italic"), wrap=250,
+                                             justify=LEFT, bg=background_color,
+                                             padx=10, pady=10)
+        self.user_beginning_label.grid(row=1)
 
-        # Play Game Button (Row 1 / Row 0)
-        self.btn_m_game = Button(self.frm_m_buttons,
-                                 text="Play",
-                                 width=15, height=2,
-                                 padx=1, pady=1,
-                                 command=self.fnc_get_g)
-        self.btn_m_game.grid(row=0)
+        # Button to start playing (not functional at the moment) (row 2)
+        self.start_button =Button(self.quiz_frame, text="Start", width=15,
+                                      font=("Calibri", 14, "bold"),
+                                  bg="honeydew1", padx=5, pady=10)
+        self.start_button.grid(row=2)
 
-    def fnc_get_g(self):
-        g = Game(self)
-
-
-# Game GUI Class
-class Game:
-    # Initialize Function
-    def __init__(self, menu):
-        # Define Formatting Variables
-        bg_colour = "orange"
-
-        # Disable Button in Menu
-        menu.btn_m_game.configure(state=DISABLED)
-
-        # Create Window
-        self.box_g = Toplevel()
-        self.box_g.protocol('WM_DELETE_WINDOW', partial(self.fnc_g_close, menu))
-
-        # Main Frame
-        self.frm_g = Frame(self.box_g, width=100, height=100, bg=bg_colour)
-        self.frm_g.grid()
-
-        # Heading (Row 0)
-        self.lbl_g_heading = Label(self.frm_g,
-                                   text="Game",
-                                   font=("Arial", "16", "bold"),
-                                   bg=bg_colour,
-                                   padx=10, pady=5)
-        self.lbl_g_heading.grid(row=0)
+        # label to make user press start (row 3),
+        self.answer_label = Label(self.quiz_frame, font=("Calibri", 16, "underline"),
+                                  fg="red",bg=background_color, pady=10,
+                                  text="press 'Start' to begin!!")
+        self.answer_label.grid(row=3)
 
 
-        # Footer Frame (Row 2)
-        self.frm_g_footer = Frame(self.frm_g, width=100, height=20, bg=bg_colour)
-        self.frm_g_footer.grid(row=2)
+        # History / Instructions button frame (row 4)
+        self.hist_instruction_frame = Frame(self.quiz_frame)
+        self.hist_instruction_frame.grid(row=4, pady=10)
 
-        # So that Width and Height is Measured in Pixels, Create 1x1 Image
-        pixel_image = PhotoImage(width=1, height=1)
+        self.ans_hist_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
+                                       text="Answer History", bg="lightgoldenrod", width=14)
+        self.ans_hist_button.grid(row=0, column=0)
 
-        # Close Button (Row 2 / Row 0)
-        self.btn_g_close = Button(self.frm_g_footer,
-                                 text="Close",
-                                 width=10, height=2,
-                                 padx=1, pady=1,
-                                 command=partial(self.fnc_g_close, menu))
-        self.btn_g_close.grid(row=0)
+        self.help_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
+                                  text="Instructions", bg="olivedrab2", width=12)
+        self.help_button.grid(row=0, column=1)
 
-    def fnc_g_close(self, menu):
-        # Re-enable Help Button
-        menu.btn_m_game.configure(state=NORMAL)
-        # Close Window
-        self.box_g.destroy()
-
-
-# Main Routine
+# Main routine
 if __name__ == "__main__":
     root = Tk()
     root.title("Maori Aotearoa Place Quiz")
-    main_window = Menu()
+    something = MaoriQuiz()
     root.mainloop()
 
+    

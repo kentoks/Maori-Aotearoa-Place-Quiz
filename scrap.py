@@ -23,14 +23,15 @@ class MaoriQuiz:
 
         # User instructions (row 1)
         self.quiz_instruction_label = Label(self.question_frame,
-                                             text="Instructions...",
+                                             text="Answer the following questions about "
+                                                  "the cities in New Zealand in Maori."
+                                                  " After you have finished, push 'Next'...",
                                              font=("Calibri", 10, "italic"), wrap=250,
                                              justify=LEFT, bg=background_color,
                                              padx=10, pady=10)
         self.quiz_instruction_label.grid(row=1)
 
         # Start button and side window (row 2)
-
         # button Frame (Row 1)
         self.buttons = Frame(self.question_frame, width=100, height=100, bg=background_color)
         self.buttons.grid(row=2)
@@ -44,7 +45,7 @@ class MaoriQuiz:
                                  command=self.answers)
         self.make_buttons.grid(row=2)
 
-    def answers(self): 
+    def answers(self):
         x = QuizInterface(self)
 
 
@@ -73,7 +74,7 @@ class QuizInterface:
                                    font=("Calibri", 16, "bold"),
                                    bg=bg_colour,
                                    padx=10, pady=10, width=15, height=2) # for now these settings...
-        self.label_heading.grid(row=0) 
+        self.label_heading.grid(row=0)
 
 
         # Footer Frame (Row 2)
@@ -81,9 +82,9 @@ class QuizInterface:
         self.main_frame_footer.grid(row=2)
 
 
-        # Dismiss Button (row 0)
+        # Close Button (row 0)
         self.closing = Button(self.main_frame_footer,
-                                 text="Dismiss",
+                                 text="Close",
                                  width=10, height=2,
                                  padx=1, pady=1,
                                  command=partial(self.make_close, menu))
@@ -94,6 +95,8 @@ class QuizInterface:
 
         # close Window
         self.new_window.destroy()
+
+
 
 
 # Main routine
