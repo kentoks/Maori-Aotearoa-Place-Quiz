@@ -15,9 +15,9 @@ class MaoriQuiz:
 
         # Temperature Conversion Heading (row 0)
         self.quiz_heading_label = Label(self.quiz_frame,
-                                          text="Maori Aotearoa Place QUiz",
+                                          text="Maori Aotearoa Place Quiz",
                                           font=("Calibri", 16, "bold"),
-                                          bg=background_color,
+                                          bg="lightgoldenrod",
                                           padx=10, pady=10)
         self.quiz_heading_label.grid(row=0)
 
@@ -35,7 +35,7 @@ class MaoriQuiz:
 class Instructions:
     def __init__(self, partner):
 
-        background = "orange"
+        background = "lightgoldenrod"
 
         # disable instructions button
         partner.instructions_button.config(state=DISABLED)
@@ -63,7 +63,7 @@ class Instructions:
 
         # Dismiss button (row 2)
         self.dismiss_btn = Button(self.instructions_frame, text="Dismiss",
-                                  width=10, bg="orange", font=("Calibri", 10, "bold"),
+                                  width=10, bg="lightgoldenrod", font=("Calibri", 10, "bold"),
                                   command=partial(self.close_instructions, partner))
         self.dismiss_btn.grid(row=2, pady=10)
 

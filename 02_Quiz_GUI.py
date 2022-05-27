@@ -22,9 +22,9 @@ class MaoriQuiz:
 
         # User beginning (row 1)
         self.user_beginning_label = Label(self.quiz_frame,
-                                             text="Answer the following questions about "
-                                                  "the cities in New Zealand in Maori."
-                                                  " After you have finished, push 'Next'...",
+                                             text="In this multi choice quiz you are going"
+                                                  "to have to choose the correct English cities for"
+                                                  "a certain Maori translated cities",
                                              font=("Calibri", 10, "italic"), wrap=250,
                                              justify=LEFT, bg=background_color,
                                              padx=10, pady=10)

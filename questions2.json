@@ -1,0 +1,80 @@
+{
+  "questions": [
+    "How do you say 'Christchurch' in Maori?",
+    "How do you say 'Auckland' in Maori?",
+    "How do you say 'Dunedin' in Maori?",
+    "How do you say 'Wellington' in Maori?",
+    "How do you say 'Queenstown' in Maori?",
+    "How do you say 'Nelson' in Maori?",
+    "How do you say 'Hamilton' in Maori?",
+    "How do you say 'Napier' in Maori?",
+    "How do you say 'Palmerston North' in Maori?",
+    "How do you say 'Invercargill' in Maori?"
+  ],
+  "answers": [
+    1,
+    2,
+    3,
+    4,
+    4,
+    3,
+    2,
+    1,
+    3,
+    2
+  ],
+  "options": [
+
+    ["Otautahi ",
+      "Otauaki",
+      "Otautau",
+      "Otaranga"
+    ],
+    ["Taumoana",
+      "Tamaki Makaurau",
+      "Tamatea-pokai-whenua",
+      "Taimate"
+    ],
+    ["Otehei",
+      "Otepopo",
+      "Otepoti",
+      "Otipua"
+    ],
+    ["Te Wairoa",
+      "Te Whare-kai-atua",
+      "Te Wai Pounamu",
+      "Te Whanga-nui-a-Tara"
+    ],
+    ["Tahuhunui",
+      "Tahunanui",
+      "Tahawai",
+      "Tahuna"
+    ],
+    ["Whakaari",
+      "Wai-whakaata",
+      "Whakatu",
+      "Whakaroa"
+    ],
+    ["Kakiroa",
+      "Kirikiriroa",
+      "Kihitu",
+      "Kihikihi"
+    ],
+    ["Ahuriri",
+      "Ahuroa",
+      "Arataha",
+      "Aratapu"
+    ],
+    ["Te Puke",
+      "Te Papatapu",
+      "Te Papa-i-Oea",
+      "Te Moana"
+    ],
+    ["Waihora",
+      "Waihopai",
+      "Waihopo",
+      "Waihohepa"
+    ]
+
+  ]
+}
