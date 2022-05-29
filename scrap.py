@@ -23,7 +23,7 @@ class MaoriQuiz:
 
         # User instructions (row 1)
         self.quiz_instruction_label = Label(self.question_frame,
-                                             text="Answer the following questions about "
+                                             text="Answer the following questions.json about "
                                                   "the cities in New Zealand in Maori."
                                                   " After you have finished, push 'Next'...",
                                              font=("Calibri", 10, "italic"), wrap=250,

@@ -1,52 +1,64 @@
-"""This is the continuing progress of the History GUI
-It is copied from previous History GUI...
-Allowing preview answer on lists that have under 3 inputs
-"""
-
 from tkinter import *
-from functools import partial # to prevent unwanted windows
-# functools prevent multiple instances from occuring, such as having multiple 'history' tabs
+from functools import partial  # To prevent unwanted windows
+import random
 
 
 class MaoriQuiz:
     def __init__(self):
 
-        # formatting variables...
+        # Formatting variables
         background_color = "deep sky blue"
 
-        # initialise the list to hold the calculation history
-        # 3 test list now
-        # simple test list
         self.all_answers = ['your results are 60%, no of wrong = 4, no of correct = 6',
                             'your results are 30%, no of wrong = 7, no of correct = 3',
                             'your results are 90%, no of wrong = 1, no of correct = 9']
 
+        # Main Quiz Frame
+        self.quiz_frame = Frame(width=300, bg=background_color, pady=10)
+        self.quiz_frame.grid()
+
+        # Maori Quiz Heading (row 0)
+        self.quiz_heading_label = Label(self.quiz_frame,
+                                        text="Maori Aotearoa Place Quiz",
+                                        font=("Calibri", 16, "bold"),
+                                        bg=background_color, padx=10, pady=10)
+        self.quiz_heading_label.grid(row=0)
+
+        # User beginning (row 1)
+        self.user_beginning_label = Label(self.quiz_frame,
+                                             text="In this multi choice quiz you are going"
+                                                  "to have to choose the correct English cities for"
+                                                  "a certain Maori translated cities",
+                                             font=("Calibri", 10, "italic"), wrap=250,
+                                             justify=LEFT, bg=background_color,
+                                             padx=10, pady=10)
+        self.user_beginning_label.grid(row=1)
+
+        # Button to start playing (not functional at the moment) (row 2)
+        self.start_button =Button(self.quiz_frame, text="Start", width=15,
+                                      font=("Calibri", 14, "bold"),
+                                  bg="honeydew1", padx=5, pady=10)
+        self.start_button.grid(row=2)
+
+        # label to make user press start (row 3),
+        self.answer_label = Label(self.quiz_frame, font=("Calibri", 16, "underline"),
+                                  fg="red",bg=background_color, pady=10,
+                                  text="press 'Start' to begin!!")
+        self.answer_label.grid(row=3)
 
 
-        # converter main screen GUI...
-        self.converter_frame = Frame(width=300, height=300, bg=background_color,
-                                     pady=10) # allows history button sizes at bottom to change
-        # can use height=300, width=30,
-        # but can be deleted, so the text can fit in the box
-        # remember what Frame is...
-        self.converter_frame.grid()
+        # History / Instructions button frame (row 4)
+        self.hist_instruction_frame = Frame(self.quiz_frame)
+        self.hist_instruction_frame.grid(row=4, pady=10)
 
-        # temperature conversion heading
-        self.temp_converter_label = Label(self.converter_frame,
-                                          text="Maori Aotearoa Place Quiz",
-                                          font=("Calibri", 18 ,"bold"),
-                                          bg=background_color,
-                                          padx=10, pady=10)
+        self.ans_hist_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
+                                       text="Answer History", bg="lightgoldenrod", width=14,
+                                      command=lambda: self.history(self.all_answers))
+        self.ans_hist_button.grid(row=0, column=0)
 
-        self.temp_converter_label.grid(row=0)
-
-        # history button (row 1)
-        self.history_button = Button(self.converter_frame, text="Answer History",
-                                  font=("Calibri", 14,),
-                                  padx=10, pady=5, command=lambda: self.history(self.all_answers))
-        # allows to open history button with lists of calculation list inputs
-        # from 'command=self.history' to 'command=lambda'
-        self.history_button.grid(row=1)
+        self.help_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
+                                  text="Instructions", bg="olivedrab2", width=12)
+        self.help_button.grid(row=0, column=1)
 
 
     def history(self, answer_history):
@@ -58,10 +70,10 @@ class History:
         # a9ef99 does not work
 
         # disable 'history' button
-        partner.history_button.config(state=DISABLED) # what does state mean?
+        partner.ans_hist_button.config(state=DISABLED) # what does state mean?
 
         # sets up child window (ie: history box)
-        self.history_box = Toplevel() # what is toplevel()?
+        self.history_box = Toplevel()
 
         # if users press cross at top, it will close 'history' and and 'releases' history button
         self.history_box.protocol('WM_DELETE_WINDOW', partial(self.close_anshistory,
@@ -128,12 +140,14 @@ class History:
 
     def close_anshistory(self, partner):
         # put history button back to normal...
-        partner.history_button.config(state=NORMAL) # returns the 'disabled' to 'normal' to make it reopenable
+        partner.ans_hist_button.config(state=NORMAL) # returns the 'disabled' to 'normal' to make it reopenable
         self.history_box.destroy() # remember about destroy() which is just closing the box
 
-# main routine
+# Main routine
 if __name__ == "__main__":
     root = Tk()
     root.title("Maori Aotearoa Place Quiz")
     something = MaoriQuiz()
     root.mainloop()
+
+

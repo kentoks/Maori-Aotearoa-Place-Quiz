@@ -1,5 +1,5 @@
-# question model used for program
-# displaying 10 questions
+# questions.json model used for program
+# displaying 10 questions.json
 # if says 'process finished with exit code 0' it means it works
 
 class QuizQuestions:
