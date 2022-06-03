@@ -66,9 +66,12 @@ class MaoriQuiz:
                                   text="Instructions", bg="olivedrab2", command=self.get_help, width=12)
         self.help_button.grid(row=0, column=1)
 
+
+        self.start_button["state"] = "DISABLEd"
+
+
     def get_to_play(self):
         start_func()
-        self.start_button.configure(state=DISABLED) # when opened once, will allow to disabled it again...
 
 
     def get_help(self):
@@ -123,8 +126,9 @@ class Instructions:
 
 def start_func():
     # for the questions to display...
+
     root = Tk()
-    root.geometry("550x450")
+    root.geometry("650x450")
     root.title("Quiz")
 
     with open('questions2.json') as f:
@@ -149,25 +153,25 @@ def start_func():
 
 
         def question(self, qn):
-            t = Label(root, text="Maori Aotearoa Place Quiz", width=40, fg="black",
-                      font=("Calibri", 20, "bold"))
+            t = Label(root, text="Playing quiz", width=40, fg="black",
+                      font=("Times", 20, "bold"))
             t.place(x=0, y=2)
-            qn = Label(root, text=questions[qn], width=60, font=("Calibri", 16, "italic"), anchor="w")
+            qn = Label(root, text=questions[qn], width=60, font=("Times", 16, "bold"), anchor="w")
             qn.place(x=70, y=100)
             return qn
 
         def radio_btns(self):
             values = 0
-            list = []
+            b = []
             yp = 150
             while values < 4:
                 btn = Radiobutton(root, text="", variable=self.option_selected,
-                                  value= values + 1, font=("Calibri", 14))
-                list.append(btn)
+                                  value = values + 1, font=("Times", 14))
+                b.append(btn)
                 btn.place(x=100, y=yp)
                 values += 1
                 yp += 40
-            return list
+            return b
 
         def display_options(self, qn):
             values = 0
@@ -179,10 +183,10 @@ def start_func():
 
         def buttons(self):
             nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
-                             font=("Calibri", 16, "bold"))
+                             font=("Times", 16, "bold"))
             nextbutton.place(x=150, y=380)
             quitbutton = Button(root, text="Quit", command=root.destroy, width=10, bg="red", fg="white",
-                                font=("Calibri", 16, "bold"))
+                                font=("Times", 16, "bold"))
             quitbutton.place(x=300, y=380)
 
 
@@ -207,7 +211,7 @@ def start_func():
             incorrect = "Numbers of incorrect answers: " + str(wc)
             mb.showinfo("Result", "\n".join([result, correct, incorrect]))
 
-    PlayQuestion()
+    quiz = PlayQuestion()
 
 
 

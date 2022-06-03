@@ -217,7 +217,7 @@ def start_func():
             saving_file = filedialog.asksaveasfile(initialdir="/desktop", title="Save...",
                                                    defaultextension=".txt")
             saved_file = open(saving_file, "w+", encoding="utf-8")
-            saved_file.write(f"Test{score, correct, incorrect}")
+            saved_file.write(f"Results are: {score, correct, incorrect}")
 
 
 

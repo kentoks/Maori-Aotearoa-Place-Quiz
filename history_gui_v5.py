@@ -53,15 +53,15 @@ class MaoriQuiz:
         History(self, answer_history)
 
 class History:
-    def __init__(self, partner, answer_history): # what is partner?
-        background = "pale green" # hex code for pale green
-        # a9ef99 does not work
+    def __init__(self, partner, answer_history):
+        background = "pale green"
+
 
         # disable 'history' button
-        partner.history_button.config(state=DISABLED) # what does state mean?
+        partner.history_button.config(state=DISABLED) # allows history button to be disabled when opened
 
         # sets up child window (ie: history box)
-        self.history_box = Toplevel() # what is toplevel()?
+        self.history_box = Toplevel()
 
         # if users press cross at top, it will close 'history' and and 'releases' history button
         self.history_box.protocol('WM_DELETE_WINDOW', partial(self.close_anshistory,
@@ -91,7 +91,7 @@ class History:
         # history output goes here... (row 2)
         anshistory_string = ""
         if len(answer_history) >= 3:
-            # The list must be greater or equal to zero
+            # The list must be greater or equal to 3
             # it cannot be greater than the number, since it could not print calculation history
             for item in range (0,3):
                 anshistory_string += answer_history[len(answer_history)-item-1] +"\n"
@@ -100,9 +100,9 @@ class History:
             for item in answer_history:
                 anshistory_string += answer_history[len(answer_history) -
                                                       answer_history.index(item)-1] + "\n"
-                self.history_text.config(text="Here is your calculation "
+                self.history_text.config(text="Here is your answer "
                                               "history: You can use this "
-                                              "export button to save this data"
+                                              "export button to save these answers"
                                               " to a text file if desired.")
 
         # Label to display calculation history to enter
@@ -129,7 +129,7 @@ class History:
     def close_anshistory(self, partner):
         # put history button back to normal...
         partner.history_button.config(state=NORMAL) # returns the 'disabled' to 'normal' to make it reopenable
-        self.history_box.destroy() # remember about destroy() which is just closing the box
+        self.history_box.destroy() # ends history box
 
 # main routine
 if __name__ == "__main__":

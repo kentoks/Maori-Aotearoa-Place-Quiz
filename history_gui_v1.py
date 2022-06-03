@@ -29,7 +29,7 @@ class MaoriQuiz:
         self.user_beginning_label = Label(self.quiz_frame,
                                              text="Remember that this quiz for fun... "
                                                   "If you are stuck, press 'help' below "
-                                                  "or if you want to  certain Maori translated cities",
+                                                  "or if you want to stop playing, press 'quit'...",
                                              font=("Calibri", 10, "italic"), wrap=250,
                                              justify=LEFT, bg=background_color,
                                              padx=10, pady=10)
@@ -69,7 +69,7 @@ class MaoriQuiz:
 
     def get_to_play(self):
         play = PlayQuestion(self)
-        play.question_text.configure(text="Questions added later...")
+        play.question_text.configure(text="Displays no questions")
 
     def get_help(self):
         help = Instructions(self)

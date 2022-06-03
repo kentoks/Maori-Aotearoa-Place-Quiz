@@ -1,5 +1,7 @@
 # will be adding a footer frame to make my interface prettier (later on in improvements)
 # does not display history button at the moment
+# however it allows each question answer saved, so that users would not be able to skip question,
+# if missed...
 
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
@@ -65,8 +67,8 @@ class MaoriQuiz:
         self.help_button.grid(row=0, column=1)
 
     def get_to_play(self):
-        play = PlayQuestion(self)
         start_func()
+        self.start_button.configure(state=DISABLED) # when opened once, will allow to disabled it again...
 
 
     def get_help(self):
@@ -119,63 +121,38 @@ class Instructions:
 
 
 
-def start_func():
-    # for the questions to display...
 
-    root = Tk()
-    root.geometry("650x450")
-    root.title("Quiz")
+class PlayQuestion:
+    def __init__(self):
+        self.qn = 0
+        self.option_selected = IntVar()
+        self.optn = self.radio_btns()
+        self.ques = self.question(self.qn)
+        self.display_options(self.qn)
+        self.buttons()
+        self.correct = 0
 
-    with open('questions2.json') as f:
-        obj = json.load(f)
-    questions = (obj['questions'])
-    options = (obj['options'])
-    answers = (obj['answers'])
-    z = zip(questions,options,answers)
-    l = list(z)
-    random.shuffle(l)
-    questions,options,answers=zip(*l)
-
-    class PlayQuestion:
-        def __init__(self, partner):
-            self.qn = 0
-            self.option_selected = IntVar()
-            self.optn = self.radio_btns()
-            self.ques = self.question(self.qn)
-            self.display_options(self.qn)
-            self.buttons()
-            self.correct = 0
-
-        # disable instructions button
-        partner.instructions_button.config(state=DISABLED)
-
-        # Sets up child window (instructions box)
-        self.instructions_box = Toplevel()
-
-        # If users press cross at top, closes instructions and 'releases' instructions button
-        self.instructions_box.protocol('WM_DELETE_WINDOW',
-                               partial(self.close_instructions, partner))
 
         def question(self, qn):
             t = Label(root, text="Playing quiz", width=40, fg="black",
-                      font=("Times", 20, "bold"))
+                      font=("Calibri", 20, "bold"))
             t.place(x=0, y=2)
-            qn = Label(root, text=questions[qn], width=60, font=("Times", 16, "bold"), anchor="w")
+            qn = Label(root, text=questions[qn], width=60, font=("Calibri", 16, "bold"), anchor="w")
             qn.place(x=70, y=100)
             return qn
 
         def radio_btns(self):
             values = 0
-            b = []
+            list = []
             yp = 150
             while values < 4:
                 btn = Radiobutton(root, text="", variable=self.option_selected,
-                                  value = values + 1, font=("Times", 14))
-                b.append(btn)
+                                  value= values + 1, font=("Calibri", 14))
+                list.append(btn)
                 btn.place(x=100, y=yp)
                 values += 1
                 yp += 40
-            return b
+            return list
 
         def display_options(self, qn):
             values = 0
@@ -187,10 +164,10 @@ def start_func():
 
         def buttons(self):
             nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
-                             font=("Times", 16, "bold"))
+                             font=("Calibri", 16, "bold"))
             nextbutton.place(x=150, y=380)
             quitbutton = Button(root, text="Quit", command=root.destroy, width=10, bg="red", fg="white",
-                                font=("Times", 16, "bold"))
+                                font=("Calibri", 16, "bold"))
             quitbutton.place(x=300, y=380)
 
 
@@ -215,12 +192,23 @@ def start_func():
             incorrect = "Numbers of incorrect answers: " + str(wc)
             mb.showinfo("Result", "\n".join([result, correct, incorrect]))
 
-        # Put instructions button back to normal..
-        partner.instructions_button.config(state=NORMAL)
-        self.instructions_box.destroy()
+    root = Tk()
+    root.geometry("650x450")
+    root.title("Quiz")
+
+    with open('questions2.json') as f:
+        obj = json.load(f)
+    questions = (obj['questions'])
+    options = (obj['options'])
+    answers = (obj['answers'])
+    z = zip(questions,options,answers)
+    l = list(z)
+    random.shuffle(l)
+    questions,options,answers=zip(*l)
+
 
     quiz = PlayQuestion()
-    root.mainloop()
+
 
 
 # Main routine
@@ -229,4 +217,4 @@ if __name__ == "__main__":
     root.title("Menu")
     something = MaoriQuiz()
     root.mainloop()
-
+    root.resizeable = (False, False) # to not resize the GUI's...

@@ -52,7 +52,8 @@ class MaoriQuiz:
         self.ans_hist_button.grid(row=0, column=0)
 
         self.help_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
-                                  text="Instructions", bg="olivedrab2", width=12)
+                                  text="Instructions", bg="olivedrab2", width=12) # have changed color from
+        # lightgoldenrod, so that to avoid confusion.
         self.help_button.grid(row=0, column=1)
 
 # Main routine

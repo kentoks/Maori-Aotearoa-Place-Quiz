@@ -6,10 +6,10 @@ import json
 import random
 
 root = Tk()
-root.geometry("650x450")
+root.geometry("650x450") # setting the size of my window
 root.title("Quiz")
 
-with open('questions2.json') as f:
+with open('questions2.json') as f: # opening the json file
     obj = json.load(f)
 questions = (obj['questions'])
 options = (obj['options'])
@@ -19,7 +19,7 @@ l = list(z)
 random.shuffle(l)
 questions,options,answers=zip(*l)
 
-class Quiz:
+class PlayQuestion:
     def __init__(self):
         self.qn = 0
         self.option_selected = IntVar()
@@ -28,6 +28,7 @@ class Quiz:
         self.display_options(self.qn)
         self.buttons()
         self.correct = 0
+
 
     def question(self, qn):
         t = Label(root, text="Playing quiz", width=40, fg="black",
@@ -60,10 +61,10 @@ class Quiz:
 
     def buttons(self):
         nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
-                         font=("Times", 16, "bold"))
+                         font=("Calibri", 16, "bold"))
         nextbutton.place(x=150, y=380)
         quitbutton = Button(root, text="Quit", command=root.destroy, width=10, bg="red", fg="white",
-                            font=("Times", 16, "bold"))
+                            font=("Calibri", 16, "bold"))
         quitbutton.place(x=300, y=380)
 
 
@@ -88,8 +89,7 @@ class Quiz:
         incorrect = "Numbers of incorrect answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, incorrect]))
 
-quiz = Quiz()
+quiz = PlayQuestion()
 root.mainloop()
-
 
 

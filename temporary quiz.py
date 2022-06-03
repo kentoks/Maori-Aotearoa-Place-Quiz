@@ -66,7 +66,7 @@ class MaoriQuiz:
         self.help_button.grid(row=0, column=1)
 
     def get_to_play(self):
-        start_func()
+        quiz = start_func()
 
     def get_help(self):
         help = Instructions(self)
@@ -115,9 +115,6 @@ class Instructions:
         partner.help_button.config(state=NORMAL)
         # close the window
         self.instructions_box.destroy()
-
-# class History:
-#     def __init__(self):
 
 
 def start_func():
@@ -207,7 +204,6 @@ def start_func():
             mb.showinfo("Result", "\n".join([result, correct, incorrect]))
 
     quiz = PlayQuestion()
-
 
 # Main routine
 if __name__ == "__main__":
