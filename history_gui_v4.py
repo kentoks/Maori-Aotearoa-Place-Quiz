@@ -17,9 +17,8 @@ class MaoriQuiz:
         # initialise the list to hold the calculation history
         # 3 test list
         # simple test list from last version
-        self.all_answers = ['your results are 60%, no of wrong = 4, no of correct = 6',
-                            'your results are 30%, no of wrong = 7, no of correct = 3',
-                            'your results are 90%, no of wrong = 1, no of correct = 9']
+        self.all_answers = ['Results: 60%, number of incorrect answers = 4, '
+                            'number of correct answers = 6']
 
 
         # converter main screen GUI...

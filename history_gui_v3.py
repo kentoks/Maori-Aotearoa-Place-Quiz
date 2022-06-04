@@ -47,16 +47,15 @@ class MaoriQuiz:
         self.ans_history_button.grid(row=1)
 
 
-    def history(self):
+    def anshistory(self):
         print("You have asked for History?")
-        get_history = history(self)
+        get_history = anshistory(self)
         get_history.ans_history_text.configure(text="History text will appear here") # what does it do?
 
 
-class history:
+class anshistory:
     def __init__(self, partner): # what is partner?
-        background = "pale green" # hex code for pale green
-        # a9ef99 does not work
+        background = "olivedrab2" # being using regular background
 
         # disable 'history' button
         partner.ans_history_button.config(state=DISABLED) # what does state mean?
@@ -109,7 +108,7 @@ class history:
 
     def close_history(self, partner):
         # put history button back to normal...
-        partner.history_button.config(state=NORMAL) # returns the 'disabled' to 'normal' to make it reopenable
+        partner.ans_history_button.config(state=NORMAL) # returns the 'disabled' to 'normal' to make it reopenable
         self.history_box.destroy() # remember about destroy() which is just closing the box
 
 # main routine

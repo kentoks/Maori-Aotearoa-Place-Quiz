@@ -119,7 +119,6 @@ class Instructions:
         self.instructions_box.destroy()
 
 
-
 def start_func():
     # for the questions to display...
     root = Tk()
@@ -158,14 +157,14 @@ def start_func():
         def radio_btns(self):
             values = 0
             list = []
-            yp = 150
-            while values < 4:
+            yposition = 150
+            while len(list) < 4:
                 btn = Radiobutton(root, text="", variable=self.option_selected,
                                   value= values + 1, font=("Calibri", 14))
                 list.append(btn)
-                btn.place(x=100, y=yp)
+                btn.place(x=100, y=yposition)
                 values += 1
-                yp += 40
+                yposition += 40
             return list
 
         def display_options(self, qn):
@@ -174,7 +173,7 @@ def start_func():
             self.ques['text'] = questions[qn]
             for op in options[qn]:
                 self.optn[values]['text'] = op
-                values +=1
+                values += 1
 
         def buttons(self):
             nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
@@ -185,7 +184,7 @@ def start_func():
             quitbutton.place(x=300, y=380)
 
         def check_ans(self, qn):
-            if self.option_selected.get() == answers[qn]:
+            if self.qn == answers[qn]:
                 return True
 
         def next_btn(self):
@@ -199,10 +198,10 @@ def start_func():
 
         def display_results(self):
             score = int(self.correct / len(questions) * 100)
-            result = "Results: " + str(score) + "%"
+            result = f"Result: {str(score)} %"
             wc = len(questions) - self.correct
-            correct = "Numbers of correct answers: " + str(self.correct)
-            incorrect = "Numbers of incorrect answers: " + str(wc)
+            correct = f"Numbers of correct answers: {str(self.correct)}"
+            incorrect = f"Numbers of incorrect answers: {str(wc)}"
             mb.showinfo("Result", "\n".join([result, correct, incorrect]))
 
     PlayQuestion()

@@ -15,11 +15,10 @@ class MaoriQuiz:
         background_color = "deep sky blue"
 
         # initialise the list to hold the calculation history
-        # 3 test list now
+        # 1 test list now
         # simple test list
-        self.all_answers = ['your results are 60%, no of wrong = 4, no of correct = 6',
-                            'your results are 30%, no of wrong = 7, no of correct = 3',
-                            'your results are 90%, no of wrong = 1, no of correct = 9']
+        self.all_answers = ['Results: 60%, number of incorrect answers = 4, '
+                            'number of correct answers = 6']
 
 
 
@@ -90,10 +89,10 @@ class History:
 
         # history output goes here... (row 2)
         anshistory_string = ""
-        if len(answer_history) >= 3:
-            # The list must be greater or equal to 3
+        if len(answer_history) >= 1:
+            # The list must be greater or equal to 1
             # it cannot be greater than the number, since it could not print calculation history
-            for item in range (0,3):
+            for item in range (0,1):
                 anshistory_string += answer_history[len(answer_history)-item-1] +"\n"
 
         else:

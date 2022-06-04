@@ -160,6 +160,6 @@ class PlayQuestion:
 if __name__ == "__main__":
     root = Tk()
     root.title("Maori Aotearoa Place Quiz")
-    something = MaoriQuiz()
+    quiz = MaoriQuiz()
     root.mainloop()
 

@@ -56,6 +56,8 @@ class MaoriQuiz:
         # lightgoldenrod, so that to avoid confusion.
         self.help_button.grid(row=0, column=1)
 
+
+
 # Main routine
 if __name__ == "__main__":
     root = Tk()
