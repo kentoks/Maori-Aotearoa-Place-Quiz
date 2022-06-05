@@ -155,7 +155,7 @@ def start_func():
             return qn
 
         def radio_btns(self):
-            values = 10
+            values = 0
             list = []
             yposition = 150
             while len(list) < 4:
