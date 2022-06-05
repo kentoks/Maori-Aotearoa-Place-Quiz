@@ -42,16 +42,16 @@ class MaoriQuiz:
         # history button (row 1)
         self.history_button = Button(self.converter_frame, text="Answer History",
                                   font=("Calibri", 14,),
-                                  padx=10, pady=5, command=lambda: self.history(self.all_answers))
+                                  padx=10, pady=5, command=lambda: self.anshistory(self.all_answers))
         # allows to open history button with lists of calculation list inputs
         # from 'command=self.history' to 'command=lambda'
         self.history_button.grid(row=1)
 
 
-    def history(self, answer_history):
-        History(self, answer_history)
+    def anshistory(self, answer_history):
+        AnsHistory(self, answer_history)
 
-class History:
+class AnsHistory:
     def __init__(self, partner, answer_history):
         background = "pale green"
 

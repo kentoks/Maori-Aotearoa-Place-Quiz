@@ -56,7 +56,7 @@ class MaoriQuiz:
 
         # for now won't use history button (no, command=ans_history)
         self.ans_hist_button = Button(self.instruction_frame, font=("Calibri", 12, "bold"),
-                                       text="Result History", bg="lightgoldenrod",
+                                       text="Answer History", bg="lightgoldenrod",
                                       width=14)
         self.ans_hist_button.grid(row=0, column=0)
 
@@ -118,12 +118,16 @@ class Instructions:
         # close the window
         self.instructions_box.destroy()
 
+    def export(self, r_results):
+        Export(self, r_results)
+
+
 
 def start_func():
     # for the questions to display...
     root = Tk()
     root.geometry("550x450")
-    root.title("Maori Aotearoa Place Quiz")
+    root.title("Quiz")
 
     with open('questions2.json') as f:
         obj = json.load(f)
@@ -150,41 +154,41 @@ def start_func():
             t = Label(root, text="Maori Aotearoa Place Quiz", width=40, fg="white",bg="black",
                       font=("Calibri", 20, "bold"))
             t.place(x=0, y=2)
-            qn = Label(root, text=questions[qn], width=60, font=("Calibri", 16, "italic", "bold"), anchor="w")
+            qn = Label(root, text=questions[qn], width=60, font=("Calibri", 16, "italic"), anchor="w")
             qn.place(x=70, y=100)
             return qn
 
         def radio_btns(self):
-            values = 10
+            values = 0
             list = []
-            yposition = 150
-            while len(list) < 4:
+            yp = 150
+            while values < 4:
                 btn = Radiobutton(root, text="", variable=self.option_selected,
-                                  value=values + 1, font=("Calibri", 14))
+                                  value= values + 1, font=("Calibri", 14))
                 list.append(btn)
-                btn.place(x=100, y=yposition)
+                btn.place(x=100, y=yp)
                 values += 1
-                yposition += 40
+                yp += 40
             return list
 
         def display_options(self, qn):
             values = 0
-            self.option_selected.set(None)
+            self.option_selected.set(0)
             self.ques['text'] = questions[qn]
             for op in options[qn]:
                 self.optn[values]['text'] = op
-                values += 1
+                values +=1
 
         def buttons(self):
             nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
                              font=("Calibri", 16, "bold"))
-            nextbutton.place(x=100, y=380)
+            nextbutton.place(x=150, y=380)
             quitbutton = Button(root, text="Quit", command=root.destroy, width=10, bg="red", fg="white",
                                 font=("Calibri", 16, "bold"))
             quitbutton.place(x=300, y=380)
 
         def check_ans(self, qn):
-            if self.qn == answers[qn]:
+            if self.option_selected.get() == answers[qn]:
                 return True
 
         def next_btn(self):
@@ -198,13 +202,134 @@ def start_func():
 
         def display_results(self):
             score = int(self.correct / len(questions) * 100)
-            result = f"Result: {str(score)} %"
+            result = "Results: " + str(score) + "%"
             wc = len(questions) - self.correct
-            correct = f"Numbers of correct answers: {str(self.correct)}"
-            incorrect = f"Numbers of incorrect answers: {str(wc)}"
+            correct = "Numbers of correct answers: " + str(self.correct)
+            incorrect = "Numbers of incorrect answers: " + str(wc)
             mb.showinfo("Result", "\n".join([result, correct, incorrect]))
 
+
     PlayQuestion()
+
+def export(self, calc_history):
+        Export(self, calc_history)
+
+
+class Export:
+    def __init__(self, partner, calc_history):
+        background = "#a9ef99"  # Pale green
+
+        # disable export button
+        partner.export_button.config(state=DISABLED)
+
+        # Sets up child window (export box)
+        self.export_box = Toplevel()
+
+        # If users press cross at top, closes export & 'releases' export button
+        self.export_box.protocol('WM_DELETE_WINDOW',
+                                 partial(self.close_export, partner))
+
+        # Set up GUI Frame
+        self.export_frame = Frame(self.export_box, width=300, bg=background)
+        self.export_frame.grid()
+
+        # Set up export heading (row 0)
+        self.how_heading = Label(self.export_frame, text="Export instructions",
+                                 font="arial 10 bold", bg=background)
+        self.how_heading.grid(row=0)
+
+        # Export text (label, row 1)
+        self.export_text = Label(self.export_frame,
+                                 text="Enter a file name in the box below and "
+                                      "press the save button to save your "
+                                      "calculation history to a text file",
+                                 justify=LEFT, width=40,
+                                 bg=background, wrap=250)
+        self.export_text.grid(row=2, pady=10)
+
+        # Warning text (label, row 1)
+        self.export_text = Label(self.export_frame,
+                                 text="If the file name you enter below "
+                                      "already exists, it's content will be "
+                                      "replaced with your calculation history",
+                                 justify=LEFT, font="Arial 10 italic",
+                                 bg="#ffafaf",  # Pink
+                                 fg="maroon", wrap=225, padx=10, pady=10)
+        self.export_text.grid(row=1)
+
+        # Filename entry box (row 3)
+        self.filename_entry = Entry(self.export_frame, width=20,
+                                    font="Arial 14 bold", justify=CENTER)
+        self.filename_entry.grid(row=3, pady=10)
+
+        # Save / Cancel Frame (row 4)
+        self.save_error_label = Label(self.export_frame, text="", fg="maroon",
+                                      bg=background)
+        self.save_error_label.grid(row=4)
+
+        # Save / Cancel Frame (row 5)
+        self.save_cancel_frame = Frame(self.export_frame)
+        self.save_cancel_frame.grid(row=5, pady=10)
+
+        # Save and cancel buttons (row 0 of save_cancel_frame)
+        self.save_button = Button(self.save_cancel_frame, text="Save",
+                                  command=partial(lambda: self.save_history
+                                  (partner, calc_history)))
+        self.save_button.grid(row=0, column=0)
+
+        self.cancel_button = Button(self.save_cancel_frame, text="Cancel",
+                                    command=partial
+                                    (self.close_export, partner))
+        self.cancel_button.grid(row=0, column=1)
+
+    def save_history(self, partner, calc_history):
+        # Has expression to check file name. Can be upper or lower case letters
+        valid_char = "[A-Za-z0-9_]"  # Letters or underscores
+        has_error = "no"
+
+        filename = self.filename_entry.get()
+
+        for letter in filename:
+            if re.match(valid_char, letter):
+                continue  # If the letter is valid, goes back and checks next
+
+            elif letter == " ":  # Otherwise, find problems
+                problem = "no spaces allowed"
+            else:
+                problem = ("no bracket's allowed".format(letter))
+            has_error = "yes"
+
+        if filename == "":
+            problem = "can't be blank"
+            has_error = "yes"
+
+        if has_error == "yes":  # Describe problem
+            self.save_error_label.config(text=f"Invalid filename - {problem}")
+            # Change entry box background to light red
+            self.filename_entry.config(bg="#ffafaf")
+        else:
+            # If there are no errors, generate text file and then close
+            # Dialogue. Add .txt suffix!
+
+            filename += ".txt"
+
+            # create file to hold data
+            f = open(filename, "w+")
+
+            # add new line at end of each item
+            for item in calc_history:
+                f.write(item + "\n")
+
+            # close file
+            f.close()
+
+            # Close dialogue
+            self.close_export(partner)
+
+    def close_export(self, partner):
+        # Put export button back to normal...
+        partner.export_button.config(state=NORMAL)
+        self.export_box.destroy()
 
 
 

@@ -9,41 +9,39 @@ class Converter:
     def __init__(self):
 
         # Formatting variables...
-        background_color = "light blue"
+        background_color = "deep sky blue"
 
-        # Initialise list to hold calculation history
-        self.all_calc_list = ['0 C is converted to -17.8 degrees F',
-                              '0 C is converted to 32 degrees F',
-                              '100 C is converted to 37.8 degrees F']
-        # self.all_calc_list = []
+        # Initialise list to hold result history
+        self.all_answer_list = ['Results: 60%, number of incorrect answers = 4, '
+                            'number of correct answers = 6']
 
-        # Converter Main Screen GUI...
+        # Quiz Main Screen GUI...
         self.converter_frame = Frame(width=300, height=300,
                                      bg=background_color, pady=10)
         self.converter_frame.grid()
 
         # Temperature Conversion Heading (row 0)
         self.temp_converter_label = Label(self.converter_frame,
-                                          text="Temperature Converter",
-                                          font=("Arial", "16", "bold",),
+                                          text="Maori Aotearoa Place Quiz",
+                                          font=("Calibri", 16, "bold",),
                                           bg=background_color,
                                           padx=10, pady=10)
         self.temp_converter_label.grid(row=0)
 
         # history Button (row 1)
         self.history_button = Button(self.converter_frame, text="History",
-                                     font=("Arial", "14"), padx=10, pady=10,
-                                     command=lambda: self.history(self.all_calc_list))
+                                     font=("Calibri", 14), padx=10, pady=10,
+                                     command=lambda: self.anshistory(self.all_answer_list))
         self.history_button.grid(row=1)
 
-        if len(self.all_calc_list) == 0:
+        if len(self.all_answer_list) == 0:
             self.history_button.config(state=DISABLED)
 
-    def history(self, calc_history):
-        History(self, calc_history)
+    def anshistory(self, calc_history):
+        AnsHistory(self, calc_history)
 
 
-class History:
+class AnsHistory:
     def __init__(self, partner, calc_history):
 
         background = "#a9ef99"  # Pale green
@@ -64,7 +62,7 @@ class History:
 
         # Set up history heading (row 0)
         self.how_heading = Label(self.history_frame, text="\nCalculation History",
-                                 font="arial 14 bold", bg=background)
+                                 font="Calibri 14 bold", bg=background)
         self.how_heading.grid(row=0)
 
         # history text (label, row 1)
@@ -74,7 +72,7 @@ class History:
                                        "create a text file of all your "
                                        "calculations for this session",
                                   justify=LEFT, width=40, bg=background,
-                                  wrap=250, font="arial 10 italic", fg="maroon")
+                                  wrap=250, font="Calibri 10 italic", fg="maroon")
         self.history_text.grid(row=1)
 
         # History output goes here... (row 2)
@@ -93,7 +91,7 @@ class History:
 
         # Label to display calculation history to user
         self.calc_label = Label(self.history_frame, text=history_string,
-                                bg=background, font="Arial 12", justify=LEFT)
+                                bg=background, font="Calibri 12", justify=LEFT)
         self.calc_label.grid(row=2)
 
         # Export / Dismiss buttons frame (row 3)
@@ -102,12 +100,12 @@ class History:
 
         # Export Button
         self.export_button = Button(self.export_dismiss_frame, text="Export",
-                                    font="arial 10 bold", command=lambda: self.export(calc_history))
+                                    font="Calibri 10 bold", command=lambda: self.export(calc_history))
         self.export_button.grid(row=0, column=0)
 
         # Dismiss Button
         self.dismiss_button = Button(self.export_dismiss_frame, text="Dismiss",
-                                     font="arial 10 bold",
+                                     font="Calibri 10 bold",
                                      command=partial(self.close_history, partner))
         self.dismiss_button.grid(row=0, column=1)
 
@@ -141,7 +139,7 @@ class Export:
 
         # Set up export heading (row 0)
         self.how_heading = Label(self.export_frame, text="Export instructions",
-                                 font="arial 10 bold", bg=background)
+                                 font="Calibri 10 bold", bg=background)
         self.how_heading.grid(row=0)
 
         # Export text (label, row 1)
@@ -157,13 +155,13 @@ class Export:
                                  text="If the file name you enter below "
                                       "already exists, it's content will"
                                       "be replaced with your calculation history",
-                                 justify=LEFT, font="Arial 10 italic",
+                                 justify=LEFT, font="Calibri 10 italic",
                                  bg="#ffafaf",  # Pink
                                  fg="maroon", wrap=225, padx=10, pady=10)
         self.export_text.grid(row=1)
 
         # Filename entry box (row 3)
-        self.filename_entry = Entry(self.export_frame, width=20, font="Arial 14 bold",
+        self.filename_entry = Entry(self.export_frame, width=20, font="Calibri 14 bold",
                                     justify=CENTER)
         self.filename_entry.grid(row=3, pady=10)
 
@@ -240,6 +238,6 @@ class Export:
 # main routine
 if __name__ == "__main__":
     root = Tk()
-    root.title("Temperature Converter")
+    root.title("Maori Aotearoa Place Quiz")
     something = Converter()
     root.mainloop()

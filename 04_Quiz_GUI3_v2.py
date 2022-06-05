@@ -1,31 +1,31 @@
-# normal questions with question numbers
-# just a basic interface of PlayQuestion but will make it prettier for my final completion...
-
 from tkinter import *
 from tkinter import messagebox as mb
 import json
-
+import random
 
 
 root = Tk()
 root.geometry("550x450")
 root.title("Quiz")
 
-with open('questions.json') as f:
+with open('questions2.json') as f:
     obj = json.load(f)
-questions = (obj['questions']) # load the questions from JSON file
-options = (obj['options']) # load the options from JSON file
-answers = (obj['answers']) # load the answers from JSON file
-
+questions = (obj['questions'])
+options = (obj['options'])
+answers = (obj['answers'])
+z = zip(questions,options,answers)
+l = list(z)
+random.shuffle(l)
+questions,options,answers=zip(*l)
 
 class PlayQuestion:
     def __init__(self):
-        self.qn = 0 # initially setting question = 0
+        self.qn = 0
         self.option_selected = IntVar()
-        self.optn = self.radio_btns() # the 4 optional radio buttons from questions.
+        self.optn = self.radio_btns()
         self.ques = self.question(self.qn)
         self.display_options(self.qn)
-        self.buttons() # buttons for next, quit buttons...
+        self.buttons()
         self.correct = 0
 
 
@@ -41,7 +41,7 @@ class PlayQuestion:
         values = 0
         list = []
         yp = 150
-        while values < 4: # the number of radio buttons must not exceed 4.
+        while values < 4:
             btn = Radiobutton(root, text="", variable=self.option_selected,
                                 value= values + 1, font=("Calibri", 14))
             list.append(btn)

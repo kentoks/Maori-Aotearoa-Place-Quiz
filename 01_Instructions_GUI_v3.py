@@ -35,7 +35,7 @@ class MaoriQuiz:
 
 class Instructions:
     def __init__(self):
-        background = "lightgoldenrod"
+        background = "olivedrab2"
 
         # sets up child window (ie: help box)
         self.help_box = Toplevel() # what is toplevel()
@@ -55,14 +55,14 @@ class Instructions:
         # what is wrap and what is justify, think...
         self.help_text.grid(row=1)
 
-        # dismiss button (row 2) (3rd row)
-        self.dismiss_button = Button(self.help_frame, text="Dismiss", width=10,
-                                     bg="lightgoldenrod", font=("Calibri", 12, "bold"),
+        # Closing button (row 2) (3rd row)
+        self.close_button = Button(self.help_frame, text="Close", width=10,
+                                     bg="olivedrab2", font=("Calibri", 12, "bold"),
                                      command=self.close_help)
-        self.dismiss_button.grid(row=2, pady=10)
+        self.close_button.grid(row=2, pady=10)
 
     def close_help(self):
-        self.help_box.destroy() # remember about destroy() which is just closing the box
+        self.help_box.destroy() # closes the help sub interface...
 
 
 # main routine

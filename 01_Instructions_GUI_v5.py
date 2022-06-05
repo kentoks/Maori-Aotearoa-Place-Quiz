@@ -1,6 +1,7 @@
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
-import random
+
+import random # not going to be used for now...
 
 
 class MaoriQuiz:
@@ -29,15 +30,15 @@ class MaoriQuiz:
     def instructions(self):
         print("You have asked for Instructions")
         get_help = Instructions(self)
-        get_help.help_text.configure(text="Instructions text goes here") # what does it do?
+        get_help.instructions_text.configure(text="Instructions text goes here") # what does it do?
 
 
 class Instructions:
     def __init__(self, partner):
-        background = "orange"
+        background = "olivedrab2"
 
         # sets up child window (ie: help box)
-        self.help_box = Toplevel() # what is toplevel()
+        self.help_box = Toplevel()
 
         # disable 'help' button
         partner.instructions_button.config(state=DISABLED) # just for now disable the instruction button...
@@ -52,19 +53,20 @@ class Instructions:
         self.how_heading.grid(row=0)
 
         # help text (label, row 1) (2nd row)
-        self.help_text = Label(self.help_frame, text="", justify=LEFT,
+        self.instructions_text = Label(self.help_frame, text="", justify=LEFT,
                                width=40, bg=background, wrap=250)
         # what is wrap and what is justify, think...
-        self.help_text.grid(row=1)
+        self.instructions_text.grid(row=1)
 
-        # dismiss button (row 2) (3rd row)
-        self.dismiss_button = Button(self.help_frame, text="Dismiss", width=10,
-                                     bg="orange", font=("Calibri", 12, "bold"),
-                                     command=self.close_help)
-        self.dismiss_button.grid(row=2, pady=10)
+        # Closing button (row 2) (3rd row)
+        self.close_button = Button(self.help_frame, text="Close", width=10,
+                                     bg="olivedrab2", font=("Calibri", 12, "bold"),
+                                     command=partial(self.close_help, partner))
+        self.close_button.grid(row=2, pady=10)
 
-    def close_help(self):
-        self.help_box.destroy() # remember about destroy() which is just closing the box
+    def close_help(self, partner):
+        partner.instructions_button.config(state=NORMAL)
+        self.help_box.destroy() # closes the help sub interface...
 
 
 # main routine

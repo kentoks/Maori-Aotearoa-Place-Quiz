@@ -7,7 +7,7 @@ from functools import partial  # To prevent unwanted windows
 from tkinter import messagebox as mb
 import json
 import random
-
+import re
 
 class MaoriQuiz:
     def __init__(self):
@@ -56,7 +56,7 @@ class MaoriQuiz:
 
         # for now won't use history button (no, command=ans_history)
         self.ans_hist_button = Button(self.instruction_frame, font=("Calibri", 12, "bold"),
-                                       text="Answer History", bg="lightgoldenrod",
+                                       text="Result History", bg="lightgoldenrod",
                                       width=14)
         self.ans_hist_button.grid(row=0, column=0)
 
@@ -148,7 +148,7 @@ def start_func():
 
 
         def question(self, qn):
-            t = Label(root, text="Maori Aotearoa Place Quiz", width=40, fg="black",
+            t = Label(root, text="Maori Aotearoa Place Quiz", width=40, fg="white",bg="black",
                       font=("Calibri", 20, "bold"))
             t.place(x=0, y=2)
             qn = Label(root, text=questions[qn], width=60, font=("Calibri", 16, "italic"), anchor="w")
@@ -179,7 +179,7 @@ def start_func():
         def buttons(self):
             nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
                              font=("Calibri", 16, "bold"))
-            nextbutton.place(x=150, y=380)
+            nextbutton.place(x=100, y=380)
             quitbutton = Button(root, text="Quit", command=root.destroy, width=10, bg="red", fg="white",
                                 font=("Calibri", 16, "bold"))
             quitbutton.place(x=300, y=380)
