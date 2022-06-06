@@ -9,6 +9,7 @@ import json
 import random
 
 
+
 class MaoriQuiz:
     def __init__(self):
 
@@ -134,6 +135,9 @@ def start_func():
     l = list(z)
     random.shuffle(l)
     questions,options,answers=zip(*l)
+    print(questions)
+    print(options)
+    print(answers)
 
     class PlayQuestion:
         def __init__(self):
@@ -157,7 +161,7 @@ def start_func():
         def radio_btns(self):
             values = 0
             list = []
-            yposition = 150
+            yposition = 175
             while len(list) < 4:
                 btn = Radiobutton(root, text="", variable=self.option_selected,
                                   value=values + 1, font=("Calibri", 14))

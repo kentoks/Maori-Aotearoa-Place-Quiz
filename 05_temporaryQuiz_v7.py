@@ -1,10 +1,10 @@
-# will be adding a footer frame to make my interface prettier (later on in improvements)
-# does not display history button at the moment
-
-from tkinter import *
-from functools import partial  # To prevent unwanted windows
 import random
-
+import json
+from tkinter import *
+from tkinter import messagebox as mb # displaying the tiny minibox for stats
+import tkinter.ttk as ttk
+from functools import partial # minimize lot of windows opened
+from niggas import *
 
 class MaoriQuiz:
     def __init__(self):
@@ -34,7 +34,7 @@ class MaoriQuiz:
         self.user_beginning_label.grid(row=1)
 
         # Button to start playing (not functional at the moment) (row 2)
-        self.start_button =Button(self.quiz_frame, text="Start", width=15,
+        self.start_button = Button(self.quiz_frame, text="Start", width=15,
                                       font=("Calibri", 14, "bold"),
                                   bg="honeydew1", command=self.get_to_play, padx=5, pady=10)
         self.start_button.grid(row=2)
@@ -63,8 +63,9 @@ class MaoriQuiz:
         self.help_button.grid(row=0, column=1)
 
     def get_to_play(self):
-        play = PlayQuestion(self)
-        play.question_text.configure(text="Questions added later...")
+        start_func()
+        self.start_button.configure(state=DISABLED) # when opened once, will allow to disabled it again...
+
 
     def get_help(self):
         help = Instructions(self)
@@ -113,54 +114,3 @@ class Instructions:
         partner.help_button.config(state=NORMAL)
         # close the window
         self.instructions_box.destroy()
-
-
-class PlayQuestion:
-    def __init__(self, partner):
-
-        background_colour2 = "deep sky blue"
-
-        # disable the 'play' button in the main Maori Quiz Interface
-        partner.start_button.configure(state=DISABLED)
-
-        # Set up child window (Question box)
-        self.question_box = Toplevel()
-
-        # If users press cross at top, closes instructions and 'releases' instructions button
-        self.question_box.protocol('WM_DELETE_WINDOW',
-                               partial(self.close_question, partner))
-
-        # Set up 2nd GUI Frame
-        self.question_frame = Frame(self.question_box, width=300, bg=background_colour2)
-        self.question_frame.grid()
-
-        # Set up Question heading (row 0)
-        self.how_heading = Label(self.question_frame, text="Welcome...",
-                                    font=("Calibri", 15, "bold"), bg=background_colour2)
-        self.how_heading.grid(row=0)
-
-        # Question text (label, row 1)
-        self.question_text = Label(self.question_frame, text="",
-                               justify=LEFT, width=40, bg=background_colour2, wrap=250)
-        self.question_text.grid(row=1)
-
-        # Close button (row 2)
-        self.close_btn = Button(self.question_frame, text="Close",
-                                  width=10, bg="deep sky blue", font=("Calibri", 10, "bold"),
-                                  command=partial(self.close_question, partner))
-        self.close_btn.grid(row=2, pady=10)
-
-    def close_question(self, partner):
-        # Put instructions button back to normal..
-        partner.start_button.config(state=NORMAL)
-        # close the window
-        self.question_box.destroy()
-
-
-# Main routine
-if __name__ == "__main__":
-    root = Tk()
-    root.title("Menu")
-    something = MaoriQuiz()
-    root.mainloop()
-

@@ -14,22 +14,22 @@ class Converter:
         # Initialise list to hold result history
         self.all_answer_list = ['Results: 60%, number of incorrect answers = 4, '
                             'number of correct answers = 6']
-
+            
         # Quiz Main Screen GUI...
-        self.converter_frame = Frame(width=300, height=300,
+        self.quiz_frame = Frame(width=300, height=300,
                                      bg=background_color, pady=10)
-        self.converter_frame.grid()
+        self.quiz_frame.grid()
 
-        # Temperature Conversion Heading (row 0)
-        self.temp_converter_label = Label(self.converter_frame,
+        # Maori Quiz Heading (row 0)
+        self.quiz_heading_label = Label(self.quiz_frame,
                                           text="Maori Aotearoa Place Quiz",
                                           font=("Calibri", 16, "bold",),
                                           bg=background_color,
                                           padx=10, pady=10)
-        self.temp_converter_label.grid(row=0)
+        self.quiz_heading_label.grid(row=0)
 
         # history Button (row 1)
-        self.history_button = Button(self.converter_frame, text="History",
+        self.history_button = Button(self.quiz_frame, text="Export",
                                      font=("Calibri", 14), padx=10, pady=10,
                                      command=lambda: self.anshistory(self.all_answer_list))
         self.history_button.grid(row=1)
@@ -37,14 +37,14 @@ class Converter:
         if len(self.all_answer_list) == 0:
             self.history_button.config(state=DISABLED)
 
-    def anshistory(self, calc_history):
-        AnsHistory(self, calc_history)
+    def anshistory(self, answer_history):
+        AnsHistory(self, answer_history)
 
 
 class AnsHistory:
-    def __init__(self, partner, calc_history):
+    def __init__(self, partner, answer_history):
 
-        background = "#a9ef99"  # Pale green
+        background = "lightgoldenrod"
 
         # disable history button
         partner.history_button.config(state=DISABLED)
@@ -61,38 +61,38 @@ class AnsHistory:
         self.history_frame.grid()
 
         # Set up history heading (row 0)
-        self.how_heading = Label(self.history_frame, text="\nCalculation History",
+        self.how_heading = Label(self.history_frame, text="\nResult History",
                                  font="Calibri 14 bold", bg=background)
         self.how_heading.grid(row=0)
 
         # history text (label, row 1)
         self.history_text = Label(self.history_frame,
-                                  text="Here are your most recent calculations"
+                                  text="Here are your results"
                                        ". Please use the export button to "
-                                       "create a text file of all your "
-                                       "calculations for this session",
+                                       "create a text file of the"
+                                       "results for this session",
                                   justify=LEFT, width=40, bg=background,
                                   wrap=250, font="Calibri 10 italic", fg="maroon")
         self.history_text.grid(row=1)
 
         # History output goes here... (row 2)
         history_string = ""
-        if len(calc_history) >= 7:
-            for item in range(0, 7):
-                history_string += calc_history[len(calc_history)-item-1]+"\n"
+        if len(answer_history) >= 1:
+            for item in range(0, 1):
+                history_string += answer_history[len(answer_history)-item-1]+"\n"
         else:
-            for item in calc_history:
-                history_string += calc_history[len(calc_history) -
-                                               calc_history.index(item)-1]+"\n"
-                self.history_text.config(text="Here is your calculation "
+            for item in answer_history:
+                history_string += answer_history[len(answer_history) -
+                                               answer_history.index(item)-1]+"\n"
+                self.history_text.config(text="Here is your result "
                                               "history. You can use this "
                                               "export button to save this data"
                                               " to a text file if desired.")
 
-        # Label to display calculation history to user
-        self.calc_label = Label(self.history_frame, text=history_string,
+        # Label to display result history to user
+        self.answer_label = Label(self.history_frame, text=history_string,
                                 bg=background, font="Calibri 12", justify=LEFT)
-        self.calc_label.grid(row=2)
+        self.answer_label.grid(row=2)
 
         # Export / Dismiss buttons frame (row 3)
         self.export_dismiss_frame = Frame(self.history_frame)
@@ -100,7 +100,7 @@ class AnsHistory:
 
         # Export Button
         self.export_button = Button(self.export_dismiss_frame, text="Export",
-                                    font="Calibri 10 bold", command=lambda: self.export(calc_history))
+                                    font="Calibri 10 bold", command=lambda: self.export(answer_history))
         self.export_button.grid(row=0, column=0)
 
         # Dismiss Button
@@ -114,14 +114,14 @@ class AnsHistory:
         partner.history_button.config(state=NORMAL)
         self.history_box.destroy()
 
-    def export(self, calc_history):
-        Export(self, calc_history)
+    def export(self, answer_history):
+        Export(self, answer_history)
 
 
 class Export:
-    def __init__(self, partner, calc_history):
-        print(calc_history)  # For testing purposes
-        background = "#a9ef99"  # Pale green
+    def __init__(self, partner, answer_history):
+        print(answer_history)  # For testing purposes
+        background = "lightgoldenrod"
 
         # disable export button
         partner.export_button.config(state=DISABLED)
@@ -146,15 +146,15 @@ class Export:
         self.export_text = Label(self.export_frame,
                                  text="Enter a file name in the box below and "
                                       "press the save button to save your "
-                                      "calculation history to a text file",
+                                      "result history to a text file",
                                  justify=LEFT, width=40, bg=background, wrap=250)
         self.export_text.grid(row=2, pady=10)
 
         # Warning text (label, row 1)
         self.export_text = Label(self.export_frame,
                                  text="If the file name you enter below "
-                                      "already exists, it's content will"
-                                      "be replaced with your calculation history",
+                                      "already exists, it's content will "
+                                      "be replaced with your result history",
                                  justify=LEFT, font="Calibri 10 italic",
                                  bg="#ffafaf",  # Pink
                                  fg="maroon", wrap=225, padx=10, pady=10)
@@ -176,16 +176,16 @@ class Export:
 
         # Save and cancel buttons (row 0 of save_cancel_frame)
         self.save_button = Button(self.save_cancel_frame, text="Save",
-                                  command=partial(lambda: self.save_history(partner, calc_history)))
+                                  command=partial(lambda: self.save_history(partner, answer_history)))
         self.save_button.grid(row=0, column=0)
 
         self.cancel_button = Button(self.save_cancel_frame, text="Cancel",
                                     command=partial(self.close_export, partner))
         self.cancel_button.grid(row=0, column=1)
 
-    def save_history(self, partner, calc_history):
+    def save_history(self, partner, answer_history):
         # Has expression to check file name. Can be upper or lower case letters
-        valid_char = "[A-Za-z0-9_]"  # Letters or underscores
+        valid_char = "[A-Za-z0-9_]"  # allows only Letters or underscores
         has_error = "no"
 
         filename = self.filename_entry.get()
@@ -220,7 +220,7 @@ class Export:
             f = open(filename, "w+")
 
             # add new line at end of each item
-            for item in calc_history:
+            for item in answer_history:
                 f.write(item + "\n")
 
             # close file

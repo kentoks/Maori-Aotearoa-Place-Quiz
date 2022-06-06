@@ -1,9 +1,13 @@
 # will be adding a footer frame to make my interface prettier (later on in improvements)
-# does not display history button at the moment
+# copied from 04_Quiz_GUI3_v2 and copied from
+
 
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
+from tkinter import messagebox as mb
+import json
 import random
+
 
 
 class MaoriQuiz:
@@ -27,7 +31,7 @@ class MaoriQuiz:
         self.user_beginning_label = Label(self.quiz_frame,
                                              text="Remember that this quiz for fun... "
                                                   "If you are stuck, press 'help' below "
-                                                  "or if you want to stop playing, press 'quit'...",
+                                                  "or after you have finished 10 questions, press 'quit'...",
                                              font=("Calibri", 10, "italic"), wrap=250,
                                              justify=LEFT, bg=background_color,
                                              padx=10, pady=10)
@@ -51,20 +55,16 @@ class MaoriQuiz:
         self.instruction_frame = Frame(self.quiz_frame)
         self.instruction_frame.grid(row=4, pady=10)
 
-        # for now won't use history button (no, command=ans_history)
-        self.ans_hist_button = Button(self.instruction_frame, font=("Calibri", 12, "bold"),
-                                       text="Result History", bg="lightgoldenrod",
-                                      width=14)
-        self.ans_hist_button.grid(row=0, column=0)
-
 
         self.help_button = Button(self.instruction_frame, font=("Calibri", 12, "bold"),
-                                  text="Instructions", bg="olivedrab2", command=self.get_help, width=12)
-        self.help_button.grid(row=0, column=1)
+                                  text="Instructions", bg="lightgoldenrod", command=self.get_help, width=12)
+        self.help_button.grid(row=0)
 
     def get_to_play(self):
-        play = PlayQuestion(self)
-        play.question_text.configure(text="Questions added later...")
+        start_func()
+        self.start_button.configure(state=DISABLED) # when opened once, will allow to disabled it again...
+        # and click 'cross' at top of main interface to start again...
+
 
     def get_help(self):
         help = Instructions(self)
@@ -76,7 +76,7 @@ class MaoriQuiz:
 class Instructions:
     def __init__(self, partner):
 
-        background = "olivedrab2"
+        background = "lightgoldenrod"
 
         # disable instructions button
         partner.help_button.config(state=DISABLED)
@@ -104,7 +104,7 @@ class Instructions:
 
         # Close button (row 2)
         self.close_btn = Button(self.instructions_frame, text="Close",
-                                  width=10, bg="olivedrab2", font=("Calibri", 10, "bold"),
+                                  width=10, bg="lightgoldenrod", font=("Calibri", 10, "bold"),
                                   command=partial(self.close_instructions, partner))
         self.close_btn.grid(row=2, pady=10)
 
@@ -115,52 +115,104 @@ class Instructions:
         self.instructions_box.destroy()
 
 
-class PlayQuestion:
-    def __init__(self, partner):
+def start_func():
+    # for the questions to display...
+    root = Tk()
+    root.geometry("550x450")
+    root.title("Maori Aotearoa Place Quiz")
 
-        background_colour2 = "deep sky blue"
+    with open('questions2.json') as f:
+        obj = json.load(f)
+    questions = (obj['questions'])
+    options = (obj['options'])
+    answers = (obj['answers'])
+    z = zip(questions,options,answers)
+    l = list(z)
+    random.shuffle(l)
+    questions,options,answers=zip(*l)
+    print(questions)
+    print(options)
+    print(answers)
 
-        # disable the 'play' button in the main Maori Quiz Interface
-        partner.start_button.configure(state=DISABLED)
+    class PlayQuestion:
+        def __init__(self):
+            self.qn = 0
+            self.option_selected = IntVar()
+            self.optn = self.radio_btns()
+            self.ques = self.question(self.qn)
+            self.display_options(self.qn)
+            self.buttons()
+            self.correct = 0
 
-        # Set up child window (Question box)
-        self.question_box = Toplevel()
 
-        # If users press cross at top, closes instructions and 'releases' instructions button
-        self.question_box.protocol('WM_DELETE_WINDOW',
-                               partial(self.close_question, partner))
+        def question(self, qn):
+            t = Label(root, text="Maori Aotearoa Place Quiz", width=40, fg="white",bg="black",
+                      font=("Calibri", 20, "bold"))
+            t.place(x=0, y=2)
+            qn = Label(root, text=questions[qn], width=60, font=("Calibri", 16, "italic", "bold"), anchor="w")
+            qn.place(x=70, y=100)
+            return qn
 
-        # Set up 2nd GUI Frame
-        self.question_frame = Frame(self.question_box, width=300, bg=background_colour2)
-        self.question_frame.grid()
+        def radio_btns(self):
+            values = 0
+            list = []
+            yposition = 175
+            while len(list) < 4:
+                btn = Radiobutton(root, text="", variable=self.option_selected,
+                                  value=values + 1, font=("Calibri", 14))
+                list.append(btn)
+                btn.place(x=100, y=yposition)
+                values += 1
+                yposition += 40
+            return list
 
-        # Set up Question heading (row 0)
-        self.how_heading = Label(self.question_frame, text="Welcome...",
-                                    font=("Calibri", 15, "bold"), bg=background_colour2)
-        self.how_heading.grid(row=0)
+        def display_options(self, qn):
+            values = 0
+            self.option_selected.set(None)
+            self.ques['text'] = questions[qn]
+            for op in options[qn]:
+                self.optn[values]['text'] = op
+                values += 1
 
-        # Question text (label, row 1)
-        self.question_text = Label(self.question_frame, text="",
-                               justify=LEFT, width=40, bg=background_colour2, wrap=250)
-        self.question_text.grid(row=1)
+        def buttons(self):
+            nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
+                             font=("Calibri", 16, "bold"))
+            nextbutton.place(x=100, y=380)
 
-        # Close button (row 2)
-        self.close_btn = Button(self.question_frame, text="Close",
-                                  width=10, bg="deep sky blue", font=("Calibri", 10, "bold"),
-                                  command=partial(self.close_question, partner))
-        self.close_btn.grid(row=2, pady=10)
+            quitbutton = Button(root, text="Quit", command=root.destroy, width=10, bg="red", fg="white",
+                                font=("Calibri", 16, "bold"))
+            quitbutton.place(x=300, y=380)
 
-    def close_question(self, partner):
-        # Put instructions button back to normal..
-        partner.start_button.config(state=NORMAL)
-        # close the window
-        self.question_box.destroy()
+        def check_ans(self, qn):
+            if self.qn == answers[qn]:
+                return True
+
+        def next_btn(self):
+            if self.check_ans(self.qn):
+                self.correct += 1
+            self.qn += 1
+            if self.qn == len(questions):
+                self.display_results()
+            else:
+                self.display_options(self.qn)
+
+        def display_results(self):
+            score = int(self.correct / len(questions) * 100)
+            result = f"Result: {str(score)} %"
+            wc = len(questions) - self.correct
+            correct = f"Numbers of correct answers: {str(self.correct)}"
+            incorrect = f"Numbers of incorrect answers: {str(wc)}"
+            mb.showinfo("Result", "\n".join([result, correct, incorrect]))
+
+    PlayQuestion()
+
+
 
 
 # Main routine
 if __name__ == "__main__":
     root = Tk()
     root.title("Menu")
-    something = MaoriQuiz()
+    quiz = MaoriQuiz()
     root.mainloop()
-
+    root.resizeable = (False, False) # to not resize the GUI's...

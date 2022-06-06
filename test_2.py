@@ -67,8 +67,6 @@ class MaoriQuiz:
         self.help_button.grid(row=0, column=1)
 
 
-        self.start_button["state"] = "DISABLEd"
-
 
     def get_to_play(self):
         start_func()
@@ -164,7 +162,7 @@ def start_func():
             values = 0
             b = []
             yp = 150
-            while values < 4:
+            while len(b) < 4:
                 btn = Radiobutton(root, text="", variable=self.option_selected,
                                   value = values + 1, font=("Times", 14))
                 b.append(btn)
