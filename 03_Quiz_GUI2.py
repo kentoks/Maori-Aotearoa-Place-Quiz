@@ -1,5 +1,9 @@
-# will be adding a footer frame to make my interface prettier (later on in improvements)
-# does not display history button at the moment
+""" 03_Quiz_GUI2
+A basic outline of what my program would like...
+It is continued from 02_Quiz_GUI but opens the sub_windows on all buttons on the interface.
+Created by Kent Nago
+"""
+
 
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
@@ -24,6 +28,7 @@ class MaoriQuiz:
         self.quiz_heading_label.grid(row=0)
 
         # User beginning (row 1)
+        # Labels will be changed throughout assembling the program...
         self.user_beginning_label = Label(self.quiz_frame,
                                              text="In this multi choice quiz you are going"
                                                   "to have to choose the correct English cities for"
@@ -52,15 +57,15 @@ class MaoriQuiz:
         self.hist_instruction_frame.grid(row=4, pady=10)
 
 
-        self.help_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
-                                  text="Instructions", bg="lightgoldenrod", command=self.get_help, width=12)
-        self.help_button.grid(row=0)
+        self.instructions_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
+                                  text="Instructions", bg="lightgoldenrod", command=self.get_instructions, width=12)
+        self.instructions_button.grid(row=0)
 
     def get_to_play(self):
         play = PlayQuestion(self)
         play.question_text.configure(text="Questions added later...")
 
-    def get_help(self):
+    def get_instructions(self):
         help = Instructions(self)
         help.instructions_text.configure(text="Answer the following questions about the cities "
                                               "in New Zealand in Maori."" After you have finished, "
@@ -73,7 +78,7 @@ class Instructions:
         background = "lightgoldenrod"
 
         # disable instructions button...
-        partner.help_button.config(state=DISABLED)
+        partner.instructions_button.config(state=DISABLED)
 
         # Sets up child window (instructions box)
         self.instructions_box = Toplevel()
@@ -104,7 +109,7 @@ class Instructions:
 
     def close_instructions(self, partner):
         # Put instructions button back to normal..
-        partner.help_button.config(state=NORMAL)
+        partner.instructions_button.config(state=NORMAL)
         # close the window
         self.instructions_box.destroy()
 

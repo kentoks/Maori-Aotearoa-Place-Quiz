@@ -1,5 +1,10 @@
-# will be adding a footer frame to make my interface prettier (later on in improvements)
-# copied from 04_Quiz_GUI3_v2 and copied from 03_Quiz_GUI2
+"""05_mainQuiz
+Mixing it and assembling the codes from
+04_Quiz_GUI3_v2 and from 03_Quiz_GUI2
+No additional changes
+Created by Kent Nago
+"""
+
 
 
 from tkinter import *
@@ -130,12 +135,11 @@ def start_func():
     l = list(z)
     random.shuffle(l)
     questions,options,answers=zip(*l)
-    print(questions)
-    print(options)
-    print(answers)
+    print("GOOD LUCK...")
 
     class PlayQuestion:
         def __init__(self):
+            # all self parameter used in all functions below...
             self.qn = 0
             self.option_selected = IntVar()
             self.optn = self.radio_btns()
@@ -154,10 +158,10 @@ def start_func():
             return qn
 
         def radio_btns(self):
-            values = 0
+            values = 0 # initial value = 0
             list = []
             yposition = 175
-            while len(list) < 4:
+            while len(list) < 4: # the amount of radio buttons can be limited to 4
                 btn = Radiobutton(root, text="", variable=self.option_selected,
                                   value=values + 1, font=("Calibri", 14))
                 list.append(btn)
@@ -175,6 +179,7 @@ def start_func():
                 values += 1
 
         def buttons(self):
+            # button functions for PlayQuestion interface
             nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
                              font=("Calibri", 16, "bold"))
             nextbutton.place(x=100, y=380)
@@ -184,19 +189,21 @@ def start_func():
             quitbutton.place(x=300, y=380)
 
         def check_ans(self, qn):
-            if self.qn == answers[qn]:
+            if self.qn == answers[qn]: # if question is right, returns it to 'True'
                 return True
 
         def next_btn(self):
+            # next button functions
             if self.check_ans(self.qn):
                 self.correct += 1
-            self.qn += 1
+            self.qn += 1 # goes to next question
             if self.qn == len(questions):
                 self.display_results()
             else:
                 self.display_options(self.qn)
 
         def display_results(self):
+            # displaying result functions
             score = int(self.correct / len(questions) * 100)
             result = f"Result: {str(score)} %"
             wc = len(questions) - self.correct
@@ -204,8 +211,7 @@ def start_func():
             incorrect = f"Numbers of incorrect answers: {str(wc)}"
             mb.showinfo("Result", "\n".join([result, correct, incorrect]))
 
-    PlayQuestion()
-
+    PlayQuestion() # calling the class
 
 
 

@@ -1,7 +1,13 @@
+"""01_Instructions_GUI_v2
+Creating a basic Instruction button to test if the button functions...
+Created by Kent Nago
+"""
+
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
+# not using it ^^ yet
 
-import random
+import random # not going to be used for now...
 
 
 class MaoriQuiz:
@@ -35,5 +41,5 @@ class MaoriQuiz:
 if __name__ == "__main__":
     root = Tk()
     root.title("Maori Aotearoa Place Quiz")
-    something = MaoriQuiz()
+    something = MaoriQuiz() # removed the root
     root.mainloop()

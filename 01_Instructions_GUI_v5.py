@@ -1,3 +1,8 @@
+"""01_Instructions_GUI_v5
+Fully functional and working 'Instructions GUI'
+Created by Kent Nago
+"""
+
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
 
@@ -44,27 +49,27 @@ class Instructions:
         partner.instructions_button.config(state=DISABLED) # just for now disable the instruction button...
 
         # sets up GUI frame
-        self.help_frame = Frame(self.help_box, width=300, bg=background)
-        self.help_frame.grid()
+        self.instructions_frame = Frame(self.help_box, width=300, bg=background)
+        self.instructions_frame.grid()
 
         # sets up help heading (row 0) (1st row)
-        self.how_heading = Label(self.help_frame, text="Help/instructions",
+        self.how_heading = Label(self.instructions_frame, text="Help/instructions",
                                  font=("Calibri", 12, "bold"), bg=background)
         self.how_heading.grid(row=0)
 
         # help text (label, row 1) (2nd row)
-        self.instructions_text = Label(self.help_frame, text="", justify=LEFT,
+        self.instructions_text = Label(self.instructions_frame, text="", justify=LEFT,
                                width=40, bg=background, wrap=250)
-        # what is wrap and what is justify, think...
+
         self.instructions_text.grid(row=1)
 
         # Closing button (row 2) (3rd row)
-        self.close_button = Button(self.help_frame, text="Close", width=10,
+        self.close_button = Button(self.instructions_frame, text="Close", width=10,
                                      bg="olivedrab2", font=("Calibri", 12, "bold"),
-                                     command=partial(self.close_help, partner))
+                                     command=partial(self.close_instructions, partner))
         self.close_button.grid(row=2, pady=10)
 
-    def close_help(self, partner):
+    def close_instructions(self, partner):
         partner.instructions_button.config(state=NORMAL)
         self.help_box.destroy() # closes the help sub interface...
 

@@ -21,10 +21,11 @@ class MaoriQuiz:
         self.quiz_heading_label.grid(row=0)
 
         # User beginning (row 1)
+        # Labels will be changed throughout assembling the program...
         self.user_beginning_label = Label(self.quiz_frame,
                                              text="In this multi choice quiz you are going"
                                                   "to have to choose the correct English cities for"
-                                                  "a certain Maori translated cities",
+                                                  "a certain Maori translated cities", #
                                              font=("Calibri", 10, "italic"), wrap=250,
                                              justify=LEFT, bg=background_color,
                                              padx=10, pady=10)

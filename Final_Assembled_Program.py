@@ -1,7 +1,10 @@
-# will be adding a footer frame to make my interface prettier (later on in improvements)
-# copied from 04_Quiz_GUI3_v2 and copied from 03_Quiz_GUI2
-# final touches such as rearranging buttons in different interface, etc...
-# as well as changing comments...
+"""Final_Assembled_Program
+Have been doing final touches such as
+rearranging buttons in different interface, etc...
+Created by Kent Nago
+"""
+
+
 
 
 from tkinter import *
@@ -129,21 +132,18 @@ def start_func():
 
     with open('questions2.json') as f:
         obj = json.load(f)
-    questions = (obj['questions'])
-    options = (obj['options'])
-    answers = (obj['answers'])
+    questions = (obj['questions']) # variable questions collecting from json file
+    options = (obj['options']) # variable options collecting from json file
+    answers = (obj['answers']) # variable answers collecting from json file
     z = zip(questions,options,answers)
     l = list(z)
     random.shuffle(l)
     questions,options,answers=zip(*l)
     # deleting these print options, as it is not needed...
-    # print(questions)
-    # print(options)
-    # print(answers)
 
     class PlayQuestion:
         def __init__(self):
-            self.qn = 0
+            self.qn = 0 #
             self.option_selected = IntVar()
             self.optn = self.radio_btns()
             self.ques = self.question(self.qn)
@@ -152,7 +152,8 @@ def start_func():
             self.correct = 0
 
 
-        def question(self, qn):
+        def question(self, qn): # question display adjustments
+            # adding labels onto quiz
             t = Label(root, text="Maori Aotearoa Place Quiz", width=40, fg="white",bg="black",
                       font=("Calibri", 20, "bold"))
             t.place(x=0, y=2)
@@ -201,16 +202,15 @@ def start_func():
             else:
                 self.display_options(self.qn)
 
-        def display_results(self):
-            score = int(self.correct / len(questions) * 100)
-            result = f"Result: {str(score)} %"
-            wc = len(questions) - self.correct
-            correct = f"Numbers of correct answers: {str(self.correct)}"
-            incorrect = f"Numbers of incorrect answers: {str(wc)}"
-            mb.showinfo("Result", "\n".join([result, correct, incorrect]))
+        def display_results(self): # displaying the results
+            score = int(self.correct / len(questions) * 100) # calculates the result by adding score
+            result = f"Result: {str(score)} %" # displays score on messagebox
+            wc = len(questions) - self.correct # calculates the amount of incorrect/correct numbers of answers
+            correct = f"Numbers of correct answers: {str(self.correct)}" # number of correct answers
+            incorrect = f"Numbers of incorrect answers: {str(wc)}" # number of incorrect answers
+            mb.showinfo("Result", "\n".join([result, correct, incorrect])) # Results...
 
-    PlayQuestion()
-
+    PlayQuestion() # calling the class
 
 
 

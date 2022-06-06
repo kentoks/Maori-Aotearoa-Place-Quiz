@@ -1,7 +1,13 @@
+"""01_Instructions_GUI_v3
+Creating a new interface, when clicking 'Instructions'
+However, it keeps on popping up, doesn't stop disabling it...
+Created by Kent Nago
+"""
+
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
 
-import random
+import random # not going to be used for now...
 
 
 class MaoriQuiz:
@@ -38,7 +44,7 @@ class Instructions:
         background = "olivedrab2"
 
         # sets up child window (ie: help box)
-        self.help_box = Toplevel() # what is toplevel()
+        self.help_box = Toplevel()
 
         # sets up GUI frame
         self.help_frame = Frame(self.help_box, width=300, bg=background)
@@ -52,7 +58,6 @@ class Instructions:
         # help text (label, row 1) (2nd row)
         self.help_text = Label(self.help_frame, text="", justify=LEFT,
                                width=40, bg=background, wrap=250)
-        # what is wrap and what is justify, think...
         self.help_text.grid(row=1)
 
         # Closing button (row 2) (3rd row)
@@ -62,7 +67,7 @@ class Instructions:
         self.close_button.grid(row=2, pady=10)
 
     def close_help(self):
-        self.help_box.destroy() # closes the help sub interface...
+        self.help_box.destroy() # closes the instructions sub interface...
 
 
 # main routine

@@ -1,3 +1,9 @@
+"""01_Instructions_GUI_v4
+Closing the new interface, when it is clicked.
+It works, when it is closed, however remains disabled...
+Created by Kent Nago
+"""
+
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
 
@@ -35,12 +41,12 @@ class MaoriQuiz:
 
 class Instructions:
     def __init__(self, partner):
-        background = "olivedrab2"
+        background = "olivedrab2" # temporary color, will change later on...
 
         # sets up child window (ie: help box)
         self.help_box = Toplevel()
 
-        # disable 'help' button
+        # disable 'instructions' button
         partner.instructions_button.config(state=DISABLED) # just for now disable the instruction button...
 
         # sets up GUI frame
@@ -52,10 +58,9 @@ class Instructions:
                                  font=("Calibri", 12, "bold"), bg=background)
         self.how_heading.grid(row=0)
 
-        # help text (label, row 1) (2nd row)
+        # instruction text (label, row 1) (2nd row)
         self.instructions_text = Label(self.help_frame, text="", justify=LEFT,
                                width=40, bg=background, wrap=250)
-        # what is wrap and what is justify, think...
         self.instructions_text.grid(row=1)
 
         # Closing button (row 2) (3rd row)
@@ -65,7 +70,7 @@ class Instructions:
         self.close_button.grid(row=2, pady=10)
 
     def close_help(self):
-        self.help_box.destroy() # closes the help sub interface...
+        self.help_box.destroy() # closes the instruction sub interface...
 
 
 # main routine

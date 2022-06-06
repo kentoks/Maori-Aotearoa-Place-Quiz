@@ -1,26 +1,29 @@
-# normal questions with question numbers
-# just a basic interface of PlayQuestion but will make it prettier for my final completion...
+"""04_temporaryQuiz_v1
+It is only the PlayQuestion GUI, where it displays the questions
+In order from Questions 1-10
+Have made the program so that users must click 'quit' to finish...
+Created by Kent Nago
+"""
 
 from tkinter import *
-from tkinter import messagebox as mb
 import json
 
 
 
 root = Tk()
 root.geometry("550x450")
-root.title("Quiz")
+root.title("Maori Aotearoa Place Quiz")
 
 with open('questions.json') as f:
     obj = json.load(f)
 questions = (obj['questions']) # load the questions from JSON file
 options = (obj['options']) # load the options from JSON file
 answers = (obj['answers']) # load the answers from JSON file
-print(questions)
+print(questions) 
 print(options)
 print(answers)
 
-class PlayQuestion:
+class PlayQuestion: # PlayQuestion class to run the quiz...
     def __init__(self):
         self.qn = 0 # initially setting question = 0
         self.option_selected = IntVar()
@@ -39,10 +42,10 @@ class PlayQuestion:
         qn.place(x=70, y=100)
         return qn
 
-    def radio_btns(self):
+    def radio_btns(self): # the radio button function
         values = 0
         list = []
-        yposition = 150
+        yposition = 150 # the position of the spaces between the radio buttons
         while values < 4: # the number of radio buttons must not exceed 4.
             btn = Radiobutton(root, text="", variable=self.option_selected,
                                 value= values + 1, font=("Calibri", 14))
@@ -77,17 +80,11 @@ class PlayQuestion:
             self.correct += 1
         self.qn += 1
         if self.qn == len(questions):
-            self.display_results()
+            print("") # must let user to click 'Quit' to finish...
         else:
             self.display_options(self.qn)
 
-    def display_results(self):
-        score = int(self.correct / len(questions) * 100)
-        result = "Results: " + str(score) + "%"
-        wc = len(questions) - self.correct
-        correct = "Numbers of correct answers: " + str(self.correct)
-        incorrect = "Numbers of incorrect answers: " + str(wc)
-        mb.showinfo("Result", "\n".join([result, correct, incorrect]))
+    # display results
 
 quiz = PlayQuestion()
 root.mainloop()

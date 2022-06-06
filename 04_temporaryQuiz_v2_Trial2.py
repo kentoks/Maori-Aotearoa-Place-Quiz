@@ -1,3 +1,10 @@
+"""04_temporaryQuiz_v2_Trial2
+It is copied form 04_temporaryQuiz_v2_Trial2
+Have only changed the print statements from printing question,options,answers
+to a simple, "Good Luck..."
+Created by Kent Nago
+"""
+
 from tkinter import *
 from tkinter import messagebox as mb
 import json
@@ -5,8 +12,8 @@ import random
 
 
 root = Tk()
-root.geometry("550x450")
-root.title("Quiz")
+root.geometry("550x450") # setting the geometry to fixed 550x450
+root.title("Maori Aotearoa Place Quiz")
 
 with open('questions2.json') as f:
     obj = json.load(f)
@@ -17,11 +24,9 @@ z = zip(questions,options,answers)
 l = list(z)
 random.shuffle(l)
 questions,options,answers=zip(*l)
-print(questions)
-print(options)
-print(answers)
+print("GOOD LUCK...")
 
-class PlayQuestion:
+class PlayQuestion: # PlayQuestion class to run the quiz...
     def __init__(self):
         self.qn = 0
         self.option_selected = IntVar()
@@ -33,6 +38,7 @@ class PlayQuestion:
 
 
     def question(self, qn):
+        # question function
         t = Label(root, text="Maori Aotearoa Place Quiz", width=40, fg="white",bg="black",
                     font=("Calibri", 20, "bold"))
         t.place(x=0, y=2)
@@ -41,16 +47,17 @@ class PlayQuestion:
         return qn
 
     def radio_btns(self):
-        values = 0
+        # radio button function
+        values = 0 # initial value = 0
         list = []
-        yp = 150
-        while values < 4:
+        yposition = 150
+        while values < 4: # value of radiobuttons can't be greater than 4 buttons...
             btn = Radiobutton(root, text="", variable=self.option_selected,
                                 value= values + 1, font=("Calibri", 14))
             list.append(btn)
-            btn.place(x=100, y=yp)
+            btn.place(x=100, y=yposition)
             values += 1
-            yp += 40
+            yposition += 40
         return list
 
     def display_options(self, qn):
@@ -62,6 +69,7 @@ class PlayQuestion:
             values +=1
 
     def buttons(self):
+        # button function
         nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
                             font=("Calibri", 16, "bold"))
         nextbutton.place(x=100, y=380)
@@ -70,10 +78,12 @@ class PlayQuestion:
         quitbutton.place(x=300, y=380)
 
     def check_ans(self, qn):
+        # check answer function
         if self.option_selected.get() == answers[qn]:
             return True
 
     def next_btn(self):
+        # next button function
         if self.check_ans(self.qn):
             self.correct += 1
         self.qn += 1
@@ -83,6 +93,7 @@ class PlayQuestion:
             self.display_options(self.qn)
 
     def display_results(self):
+        # display results function
         score = int(self.correct / len(questions) * 100)
         result = "Results: " + str(score) + "%"
         wc = len(questions) - self.correct
