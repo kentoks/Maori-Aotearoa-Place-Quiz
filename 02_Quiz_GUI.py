@@ -47,14 +47,9 @@ class MaoriQuiz:
         self.hist_instruction_frame = Frame(self.quiz_frame)
         self.hist_instruction_frame.grid(row=4, pady=10)
 
-        self.ans_hist_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
-                                       text="Answer History", bg="lightgoldenrod", width=14)
-        self.ans_hist_button.grid(row=0, column=0)
-
         self.help_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
-                                  text="Instructions", bg="olivedrab2", width=12) # have changed color from
-        # lightgoldenrod, so that to avoid confusion.
-        self.help_button.grid(row=0, column=1)
+                                  text="Instructions", bg="lightgoldenrod", width=12) #
+        self.help_button.grid(row=0)
 
 
 

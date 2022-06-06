@@ -1,5 +1,7 @@
 # will be adding a footer frame to make my interface prettier (later on in improvements)
-# copied from 04_Quiz_GUI3_v2 and copied from
+# copied from 04_Quiz_GUI3_v2 and copied from 03_Quiz_GUI2
+# final touches such as rearranging buttons in different interface, etc...
+# as well as changing comments...
 
 
 from tkinter import *
@@ -46,7 +48,7 @@ class MaoriQuiz:
 
         # label to make user press start (row 3)
         self.answer_label = Label(self.quiz_frame, font=("Calibri", 16, "underline"),
-                                  fg="red",bg=background_color, pady=10,
+                                  fg="firebrick1",bg=background_color, pady=10,
                                   text="press 'Start' to begin!!")
         self.answer_label.grid(row=3)
 
@@ -55,10 +57,14 @@ class MaoriQuiz:
         self.instruction_frame = Frame(self.quiz_frame)
         self.instruction_frame.grid(row=4, pady=10)
 
+        self.quit_button = Button(self.instruction_frame, font=("Calibri", 12, "bold"),
+                                  text="Quit", bg="Red", command=root.destroy, width=12)
+        self.quit_button.grid(row=0, column=0)
+
 
         self.help_button = Button(self.instruction_frame, font=("Calibri", 12, "bold"),
                                   text="Instructions", bg="lightgoldenrod", command=self.get_help, width=12)
-        self.help_button.grid(row=0)
+        self.help_button.grid(row=0, column=1)
 
     def get_to_play(self):
         start_func()
@@ -130,9 +136,10 @@ def start_func():
     l = list(z)
     random.shuffle(l)
     questions,options,answers=zip(*l)
-    print(questions)
-    print(options)
-    print(answers)
+    # deleting these print options, as it is not needed...
+    # print(questions)
+    # print(options)
+    # print(answers)
 
     class PlayQuestion:
         def __init__(self):
@@ -143,9 +150,6 @@ def start_func():
             self.display_options(self.qn)
             self.buttons()
             self.correct = 0
-
-            self.start_box = Toplevel()
-            self.start_box.protocol('WM_DELETE_WINDOW')
 
 
         def question(self, qn):
@@ -180,11 +184,8 @@ def start_func():
         def buttons(self):
             nextbutton = Button(root, text="Next", command=self.next_btn, width=10, bg="green", fg="white",
                              font=("Calibri", 16, "bold"))
-            nextbutton.place(x=100, y=380)
+            nextbutton.place(x=200, y=380)
 
-            quitbutton = Button(root, text="Quit", command=root.destroy, width=10, bg="red", fg="white",
-                                font=("Calibri", 16, "bold"), command=self.start_box)
-            quitbutton.place(x=300, y=380)
 
         def check_ans(self, qn):
             if self.qn == answers[qn]:
@@ -196,6 +197,7 @@ def start_func():
             self.qn += 1
             if self.qn == len(questions):
                 self.display_results()
+                root.destroy()
             else:
                 self.display_options(self.qn)
 

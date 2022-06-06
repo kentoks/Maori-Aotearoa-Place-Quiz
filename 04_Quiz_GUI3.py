@@ -16,7 +16,9 @@ with open('questions.json') as f:
 questions = (obj['questions']) # load the questions from JSON file
 options = (obj['options']) # load the options from JSON file
 answers = (obj['answers']) # load the answers from JSON file
-
+print(questions)
+print(options)
+print(answers)
 
 class PlayQuestion:
     def __init__(self):
@@ -40,14 +42,14 @@ class PlayQuestion:
     def radio_btns(self):
         values = 0
         list = []
-        yp = 150
+        yposition = 150
         while values < 4: # the number of radio buttons must not exceed 4.
             btn = Radiobutton(root, text="", variable=self.option_selected,
                                 value= values + 1, font=("Calibri", 14))
             list.append(btn)
-            btn.place(x=100, y=yp)
+            btn.place(x=100, y=yposition)
             values += 1
-            yp += 40
+            yposition += 40
         return list
 
     def display_options(self, qn):

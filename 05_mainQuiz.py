@@ -1,5 +1,5 @@
 # will be adding a footer frame to make my interface prettier (later on in improvements)
-# copied from 04_Quiz_GUI3_v2 and copied from
+# copied from 04_Quiz_GUI3_v2 and copied from 03_Quiz_GUI2
 
 
 from tkinter import *

@@ -25,9 +25,9 @@ class MaoriQuiz:
 
         # User beginning (row 1)
         self.user_beginning_label = Label(self.quiz_frame,
-                                             text="Remember that this quiz for fun... "
-                                                  "If you are stuck, press 'help' below "
-                                                  "or if you want to  certain Maori translated cities",
+                                             text="In this multi choice quiz you are going"
+                                                  "to have to choose the correct English cities for"
+                                                  "a certain Maori translated cities",
                                              font=("Calibri", 10, "italic"), wrap=250,
                                              justify=LEFT, bg=background_color,
                                              padx=10, pady=10)
@@ -51,15 +51,10 @@ class MaoriQuiz:
         self.hist_instruction_frame = Frame(self.quiz_frame)
         self.hist_instruction_frame.grid(row=4, pady=10)
 
-        # for now won't use history button (no, command=ans_history)
-        self.ans_hist_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
-                                       text="Answer History", bg="lightgoldenrod",
-                                      width=14)
-        self.ans_hist_button.grid(row=0, column=0)
 
         self.help_button = Button(self.hist_instruction_frame, font=("Calibri", 12, "bold"),
-                                  text="Instructions", bg="olivedrab2", command=self.get_help, width=12)
-        self.help_button.grid(row=0, column=1)
+                                  text="Instructions", bg="lightgoldenrod", command=self.get_help, width=12)
+        self.help_button.grid(row=0)
 
     def get_to_play(self):
         play = PlayQuestion(self)
@@ -75,9 +70,9 @@ class MaoriQuiz:
 class Instructions:
     def __init__(self, partner):
 
-        background = "olivedrab2"
+        background = "lightgoldenrod"
 
-        # disable instructions button
+        # disable instructions button...
         partner.help_button.config(state=DISABLED)
 
         # Sets up child window (instructions box)
@@ -103,7 +98,7 @@ class Instructions:
 
         # Close button (row 2)
         self.close_btn = Button(self.instructions_frame, text="Close",
-                                  width=10, bg="olivedrab2", font=("Calibri", 10, "bold"),
+                                  width=10, bg="lightgoldenrod", font=("Calibri", 10, "bold"),
                                   command=partial(self.close_instructions, partner))
         self.close_btn.grid(row=2, pady=10)
 

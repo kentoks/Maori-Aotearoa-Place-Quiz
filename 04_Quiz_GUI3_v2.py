@@ -17,6 +17,9 @@ z = zip(questions,options,answers)
 l = list(z)
 random.shuffle(l)
 questions,options,answers=zip(*l)
+print(questions)
+print(options)
+print(answers)
 
 class PlayQuestion:
     def __init__(self):

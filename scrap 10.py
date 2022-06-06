@@ -206,13 +206,13 @@ gui.geometry("800x450")
 gui.title("GeeksforGeeks Quiz")
 
 # get the questions.json from the json file
-with open('questions.json.json') as f:
+with open('questions.json') as f:
     data = json.load(f)
 
 # set the questions.json, options, and answer
-question = (data['questions.json'])
+question = (data['questions'])
 options = (data['options'])
-answer = (data[ 'answer'])
+answer = (data['answers'])
 
 # create an object of the Quiz Class.
 quiz = Quiz()
